@@ -1,6 +1,6 @@
 ﻿namespace Enums
 {
-    public enum ShotOriginTypes
+    public enum FireModes
     {
         Single,
         Loop,
