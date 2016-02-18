@@ -10,31 +10,21 @@ public class Weapon : Subsystem {
     public List<Transform> ShotOrigins;
     public Shot Shot;
     public FirePattern FirePattern;
-    private ShotTypes ShotType;
+    public FireModes FireMode;
     public bool isFiring;
     private bool isFiringCycleActive;
     private float TimeElapsed;
     private int Index;
-
-
+    private int ShotOriginIndex;
+    private System.Random RandomGenerator;
+    
 	// Use this for initialization
 	void Start () {
         isFiring = false;
-        switch (Shot.GetType().ToString())
-        {
-            case "Projectile":
-                ShotType = ShotTypes.Projectile;
-                break;
-            case "ShortBeam":
-                ShotType = ShotTypes.ShortBeam;
-                break;
-            default:
-                ShotType = ShotTypes.Projectile;
-                break;
-        }
+        RandomGenerator = new System.Random();
+        ShotOriginIndex = 0;
 	}
 	
-	// Update is called once per frame
 	void Update () {
         if (isFiring || isFiringCycleActive)
         {
@@ -57,17 +47,31 @@ public class Weapon : Subsystem {
                 }
                 else
                 {
-                    switch (ShotType)
+                    while (Index < FirePattern.TimeOffsets.Count && TimeElapsed * 1000 >= FirePattern.TimeOffsets[Index])
                     {
-                        case ShotTypes.Projectile:
-                        case ShotTypes.ShortBeam:
-                        default:
-                            while (Index < FirePattern.TimeOffsets.Count && TimeElapsed * 1000 >= FirePattern.TimeOffsets[Index])
+                        foreach (Shot shot in FirePattern.Entities)
+                        {
+                            switch (FireMode)
                             {
-                                Instantiate(Shot, ShotOrigins[0].position, ShotOrigins[0].rotation);
-                                Index++;
+                                case FireModes.Loop:
+                                    Instantiate(shot, ShotOrigins[ShotOriginIndex].position, ShotOrigins[ShotOriginIndex].rotation);
+                                    ShotOriginIndex++;
+                                    if (ShotOriginIndex >= ShotOrigins.Count)
+                                    {
+                                        ShotOriginIndex = 0;
+                                    }
+                                    break;
+                                case FireModes.Random:
+                                    int randomIndex = RandomGenerator.Next(0, ShotOrigins.Count);
+                                    Instantiate(shot, ShotOrigins[randomIndex].position, ShotOrigins[randomIndex].rotation);
+                                    break;
+                                case FireModes.Single:
+                                default:
+                                    Instantiate(shot, ShotOrigins[0].position, ShotOrigins[0].rotation);
+                                    break;
                             }
-                            break;
+                            Index++;
+                        }
                     }
                 }
                 TimeElapsed += Time.deltaTime;

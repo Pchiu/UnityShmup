@@ -4,14 +4,4 @@ using System.Collections;
 public class FirePattern : SpawnPattern {
 
     public int TotalTime;
-
-    // Use this for initialization
-    void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-    }
-
 }

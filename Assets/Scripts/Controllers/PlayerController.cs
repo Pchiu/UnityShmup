@@ -42,14 +42,15 @@ public class PlayerController : MonoBehaviour {
 
         FirePattern pattern1 = new FirePattern();
         pattern1.TimeOffsets = new List<int>();
-        pattern1.Entity = shot;
+        pattern1.Entities = new List<Entity>();
+        pattern1.Entities.Add(shot);
         pattern1.TimeOffsets.Add(0);
         pattern1.TimeOffsets.Add(150);
         pattern1.TimeOffsets.Add(300);
         pattern1.TotalTime = 800;
 
         gun1.FirePattern = pattern1;
-        gun1.Shot = shot;
+        gun1.FireMode = FireModes.Single;
         ship.Subsystems.Add(gun1);
 
         Ship = ship;

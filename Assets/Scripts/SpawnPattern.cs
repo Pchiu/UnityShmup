@@ -4,24 +4,11 @@ using System.Collections.Generic;
 
 public class SpawnPattern {
 
-    public Entity Entity;
-    public List<Transform> PositionOffsets;
+    public List<Entity> Entities;
     public List<int> TimeOffsets;
-    public List<int> RotationOffsets;
-    public float Difficulty;
-    public float TimeElapsed;
-
-    public int Index;
 	// Use this for initialization
 	void Start () {
+        Entities = new List<Entity>();
         TimeOffsets = new List<int>();
-        PositionOffsets = new List<Transform>();
-        RotationOffsets = new List<int>();
-        TimeElapsed = 0f;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	    
 	}
 }
