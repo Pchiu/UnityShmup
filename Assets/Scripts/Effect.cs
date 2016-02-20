@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Enums;
 
 public class Effect : MonoBehaviour {
 
+    public EffectTypes EffectType;
 	// Use this for initialization
 	void Start () {
 	

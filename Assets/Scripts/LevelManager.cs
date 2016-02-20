@@ -33,7 +33,6 @@ public class LevelManager : MonoBehaviour {
         ActiveDoodads = new List<Doodad>();
         LatestTile = null;
         CameraHeight = Camera.main.orthographicSize * 2f;
-        SetActiveLevel("Level1");
 	}
 	
 	// Update is called once per frame

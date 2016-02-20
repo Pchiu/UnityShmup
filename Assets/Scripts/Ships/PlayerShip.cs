@@ -13,7 +13,7 @@ public class PlayerShip : Ship {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        base.Update();    
 	}
 
     void OnTriggerEnter2D(Collider2D collider)

@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour {
         GameObject shipObject = Instantiate(Resources.Load("Prefabs/Fighter")) as GameObject;
         PlayerShip ship = shipObject.GetComponent<PlayerShip>();
         ship.Subsystems = new List<Subsystem>();
+        ship.Effects = new List<Effect>();
         
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(-0.1f, 0)));
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(0.1f, 0)));
@@ -34,11 +35,21 @@ public class PlayerController : MonoBehaviour {
         shotObject.tag = "FriendlyShot";
 
         GameObject gun1Object = Instantiate(Resources.Load("Prefabs/Gun")) as GameObject;
-        
 
         Weapon gun1 = gun1Object.GetComponent<Weapon>();
         gun1.transform.parent = ship.transform;
         gun1.transform.position = ship.Hardpoints[0].Position;
+
+        GameObject engineFlareObject = Instantiate(Resources.Load("Prefabs/EngineFlare1"), new Vector3(0, -.4f, 0), ship.transform.rotation) as GameObject;
+        Effect engineFlare = engineFlareObject.GetComponent<Effect>();
+        engineFlare.transform.parent = ship.transform;
+        ship.Effects.Add(engineFlare);
+
+        GameObject engineFlareObject2 = Instantiate(Resources.Load("Prefabs/EngineFlare1"), new Vector3(-0.1f, .2f, 0), Quaternion.LookRotation(Vector3.forward, ship.transform.right)) as GameObject;
+        Effect engineFlare2 = engineFlareObject2.GetComponent<Effect>();
+        engineFlare2.transform.parent = ship.transform;
+        ship.Effects.Add(engineFlare2);
+
 
         FirePattern pattern1 = new FirePattern();
         pattern1.TimeOffsets = new List<int>();

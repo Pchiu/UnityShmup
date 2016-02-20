@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Effect.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Enums\AreaTypes.cs" />
+    <Compile Include="Assets\Scripts\Enums\EffectTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\FireModes.cs" />
     <Compile Include="Assets\Scripts\Enums\ShotTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\SubsystemTypes.cs" />
