@@ -2,15 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class GameController : MonoBehaviour {
 
-    public List<Ship> Ships;
-    public List<Subsystem> Subsystems;
-    public List<Projectile> Projectiles;
-    public List<MovementPattern> MovementPatterns;
+    public LevelController LevelController;
     // Use this for initialization
     void Start () {
-	
+        //LevelManager = gameObject.AddComponent<LevelManager>();
+        GameDataManager.Instance.LevelManager.CreateTestLevel();
+        LevelController.SetActiveLevel("Level1");
 	}
 	
 	// Update is called once per frame

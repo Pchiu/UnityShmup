@@ -11,11 +11,11 @@ public class LevelController : MonoBehaviour {
     public int AreaIndex;
     public float TotalElapsedTime;
     public float AreaElapsedTime;
-    public List<AreaTile> ActiveTiles;
+    public List<Tile> ActiveTiles;
     public List<Doodad> ActiveDoodads;
     public int DoodadIndex;
     public float CurrentSpeed;
-    public AreaTile LatestTile;
+    public Tile LatestTile;
     public float CameraHeight;
 
     // Use this for initialization
@@ -25,7 +25,7 @@ public class LevelController : MonoBehaviour {
         TotalElapsedTime = 0f;
         AreaElapsedTime = 0f;
         CurrentSpeed = 0f;
-        ActiveTiles = new List<AreaTile>();
+        ActiveTiles = new List<Tile>();
         ActiveDoodads = new List<Doodad>();
         LatestTile = null;
         CameraHeight = Camera.main.orthographicSize * 2f;
@@ -34,7 +34,7 @@ public class LevelController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (ActiveLevel)
+        if (ActiveLevel != null)
         {
             TotalElapsedTime += Time.deltaTime;
             AreaElapsedTime += Time.deltaTime;
@@ -45,7 +45,7 @@ public class LevelController : MonoBehaviour {
                 return;
             }
 
-            foreach (AreaTile tile in ActiveTiles.Reverse<AreaTile>())
+            foreach (Tile tile in ActiveTiles.Reverse<Tile>())
             {
                 float distanceTraveled = Time.deltaTime * CurrentSpeed;
                 tile.transform.position -= new Vector3(0, distanceTraveled);
@@ -108,13 +108,13 @@ public class LevelController : MonoBehaviour {
 
     public void SetActiveLevel(string levelName)
     {
-        if (LevelManager.instance == null)
+        if (GameDataManager.Instance == null)
         {
-            Debug.Log("LevelManager has not been initialized yet.  Unable to load a level.");
+            Debug.Log("GameDataManager has not been initialized yet.  Unable to load a level.");
             return;
         }
-        ActiveLevel = LevelManager.instance.Levels.FirstOrDefault(l => l.LevelName == levelName);        
-        if (!ActiveLevel)
+        ActiveLevel = GameDataManager.Instance.LevelManager.Levels[levelName];    
+        if (ActiveLevel == null)
         {
             Debug.Log("Failed to load level: " + levelName);
             return;
@@ -125,7 +125,7 @@ public class LevelController : MonoBehaviour {
         CurrentSpeed = ActiveLevel.Areas[0].Speed;
 
         GameObject tileObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].AreaBackgroundImage), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
-        AreaTile tile = tileObject.GetComponent<AreaTile>();
+        Tile tile = tileObject.GetComponent<Tile>();
         Sprite sprite = tileObject.GetComponent<SpriteRenderer>().sprite;
 
         tile.Height = sprite.bounds.size.y;
@@ -138,7 +138,7 @@ public class LevelController : MonoBehaviour {
     public void SetNextTile(bool changedArea)
     {
         GameObject tileObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].AreaBackgroundImage), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
-        AreaTile tile = tileObject.GetComponent<AreaTile>();
+        Tile tile = tileObject.GetComponent<Tile>();
         Sprite sprite = tileObject.GetComponent<SpriteRenderer>().sprite;
         tile.DistanceTraveled = 0;
         tile.Height = sprite.bounds.size.y;
