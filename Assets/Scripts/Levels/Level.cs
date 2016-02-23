@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Level : MonoBehaviour {
+public class Level {
 
     public string LevelName;
     public List<Area> Areas;
