@@ -22,7 +22,6 @@ public class GameController : MonoBehaviour {
     void Start () {
 
         GameDataManager.Instance.LevelManager.CreateTestLevel();
-        LevelController.SetActiveLevel("Level1");
         PlayerController.CreateTestShip();
 	}
 	

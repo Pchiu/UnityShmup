@@ -20,7 +20,7 @@ public class LevelController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        /*
+        
         AreaIndex = 0;
         DoodadIndex = 0;
         TotalElapsedTime = 0f;
@@ -29,7 +29,6 @@ public class LevelController : MonoBehaviour {
         ActiveTiles = new List<Tile>();
         ActiveDoodads = new List<Doodad>();
         LatestTile = null;
-        */
         CameraHeight = Camera.main.orthographicSize * 2f;
     }
 	
