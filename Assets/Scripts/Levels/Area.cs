@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enums;
 
-public class Area : MonoBehaviour{
+public class Area {
 
     public AreaTypes AreaType;
     public int Time;

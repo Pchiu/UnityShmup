@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AreaTile : MonoBehaviour {
+public class Tile : MonoBehaviour {
 
     public float DistanceTraveled;
     public float Height;

@@ -17,16 +17,16 @@ public class PlayerController : MonoBehaviour {
         SetBounds();
         InputEnabled = true;
         AllRange = true;
-        CreateTestShip();
+        //CreateTestShip();
     }
 
-    void CreateTestShip()
+    public void CreateTestShip()
     {
         GameObject shipObject = Instantiate(Resources.Load("Prefabs/Fighter")) as GameObject;
         PlayerShip ship = shipObject.GetComponent<PlayerShip>();
         ship.Subsystems = new List<Subsystem>();
         ship.Effects = new List<Effect>();
-        
+
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(-0.1f, 0)));
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(0.1f, 0)));
 

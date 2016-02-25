@@ -4,40 +4,37 @@ using System.Collections.Generic;
 using System.Linq;
 using Enums;
 
-public class LevelManager : MonoBehaviour {
+public class LevelController : MonoBehaviour {
 
-    public List<Level> Levels;
     private Level ActiveLevel;
 
     public int AreaIndex;
     public float TotalElapsedTime;
     public float AreaElapsedTime;
-    public List<AreaTile> ActiveTiles;
+    public List<Tile> ActiveTiles;
     public List<Doodad> ActiveDoodads;
     public int DoodadIndex;
     public float CurrentSpeed;
-    public AreaTile LatestTile;
+    public Tile LatestTile;
     public float CameraHeight;
 
-    public List<AreaTile> Tiles;
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+        
         AreaIndex = 0;
         DoodadIndex = 0;
         TotalElapsedTime = 0f;
         AreaElapsedTime = 0f;
         CurrentSpeed = 0f;
-        Tiles = new List<AreaTile>();
-        ActiveTiles = new List<AreaTile>();
+        ActiveTiles = new List<Tile>();
         ActiveDoodads = new List<Doodad>();
         LatestTile = null;
         CameraHeight = Camera.main.orthographicSize * 2f;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	    if (ActiveLevel)
+        if (ActiveLevel != null)
         {
             TotalElapsedTime += Time.deltaTime;
             AreaElapsedTime += Time.deltaTime;
@@ -48,12 +45,12 @@ public class LevelManager : MonoBehaviour {
                 return;
             }
 
-            foreach (AreaTile tile in ActiveTiles.Reverse<AreaTile>())
+            foreach (Tile tile in ActiveTiles.Reverse<Tile>())
             {
                 float distanceTraveled = Time.deltaTime * CurrentSpeed;
                 tile.transform.position -= new Vector3(0, distanceTraveled);
                 tile.DistanceTraveled += distanceTraveled;
-                if (tile.transform.position.y < -((CameraHeight/2) + tile.Height/2))
+                if (tile.transform.position.y < -((CameraHeight / 2) + tile.Height / 2))
                 {
                     ActiveTiles.Remove(tile);
                     Destroy(tile.gameObject);
@@ -63,7 +60,7 @@ public class LevelManager : MonoBehaviour {
             foreach (Doodad doodad in ActiveDoodads.Reverse<Doodad>())
             {
                 doodad.transform.position -= new Vector3(0, Time.deltaTime * CurrentSpeed);
-                if (doodad.transform.position.y < -((CameraHeight/2) + doodad.Height/2))
+                if (doodad.transform.position.y < -((CameraHeight / 2) + doodad.Height / 2))
                 {
                     ActiveDoodads.Remove(doodad);
                     Destroy(doodad.gameObject);
@@ -106,14 +103,18 @@ public class LevelManager : MonoBehaviour {
                     }
                 }
             }
-            
         }
-	}
+    }
 
     public void SetActiveLevel(string levelName)
     {
-        ActiveLevel = Levels.FirstOrDefault(l => l.LevelName == levelName);
-        if (!ActiveLevel)
+        if (GameDataManager.Instance == null)
+        {
+            Debug.Log("GameDataManager has not been initialized yet.  Unable to load a level.");
+            return;
+        }
+        ActiveLevel = GameDataManager.Instance.LevelManager.Levels[levelName];    
+        if (ActiveLevel == null)
         {
             Debug.Log("Failed to load level: " + levelName);
             return;
@@ -124,12 +125,12 @@ public class LevelManager : MonoBehaviour {
         CurrentSpeed = ActiveLevel.Areas[0].Speed;
 
         GameObject tileObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].AreaBackgroundImage), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
-        AreaTile tile = tileObject.GetComponent<AreaTile>();
+        Tile tile = tileObject.GetComponent<Tile>();
         Sprite sprite = tileObject.GetComponent<SpriteRenderer>().sprite;
-        
+
         tile.Height = sprite.bounds.size.y;
-        tile.DistanceTraveled = tile.Height;        
-        tile.transform.position = new Vector3(0, -(CameraHeight/2) + tile.Height/2, 10);
+        tile.DistanceTraveled = tile.Height;
+        tile.transform.position = new Vector3(0, -(CameraHeight / 2) + tile.Height / 2, 10);
         ActiveTiles.Add(tile);
         LatestTile = tile;
     }
@@ -137,7 +138,7 @@ public class LevelManager : MonoBehaviour {
     public void SetNextTile(bool changedArea)
     {
         GameObject tileObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].AreaBackgroundImage), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
-        AreaTile tile = tileObject.GetComponent<AreaTile>();
+        Tile tile = tileObject.GetComponent<Tile>();
         Sprite sprite = tileObject.GetComponent<SpriteRenderer>().sprite;
         tile.DistanceTraveled = 0;
         tile.Height = sprite.bounds.size.y;
