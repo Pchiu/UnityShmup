@@ -6,11 +6,24 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
 
     public LevelController LevelController;
+    public PlayerController PlayerController;
+    public static GameController Instance;
+    
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+    }
+
     // Use this for initialization
     void Start () {
-        //LevelManager = gameObject.AddComponent<LevelManager>();
+
         GameDataManager.Instance.LevelManager.CreateTestLevel();
         LevelController.SetActiveLevel("Level1");
+        PlayerController.CreateTestShip();
 	}
 	
 	// Update is called once per frame

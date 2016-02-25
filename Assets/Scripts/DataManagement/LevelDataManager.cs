@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Enums;
 
-public class LevelDataManager {
+public class LevelDataManager : MonoBehaviour {
 
     public Dictionary<string, Level> Levels;
     public Dictionary<string, Area> Areas;

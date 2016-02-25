@@ -18,11 +18,8 @@ public class GameDataManager : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        LevelManager = new LevelDataManager();
         
 	}
-
-
 	
 	// Update is called once per frame
 	void Update () {
