@@ -95,6 +95,7 @@ GameObject:
   - 4: {fileID: 767156374}
   - 114: {fileID: 767156373}
   - 114: {fileID: 767156372}
+  - 114: {fileID: 767156375}
   m_Layer: 0
   m_Name: GameDataManager
   m_TagString: Untagged
@@ -125,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelManager: {fileID: 767156372}
+  MovementPatternManager: {fileID: 767156375}
 --- !u!4 &767156374
 Transform:
   m_ObjectHideFlags: 0
@@ -137,6 +139,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &767156375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 767156371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e71690ca2af54242a416533dbfa4bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1651827129
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +247,7 @@ GameObject:
   - 114: {fileID: 1915953183}
   - 114: {fileID: 1915953182}
   - 114: {fileID: 1915953181}
+  - 114: {fileID: 1915953185}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -288,6 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelController: {fileID: 1915953182}
   PlayerController: {fileID: 1915953181}
+  ShipController: {fileID: 1915953185}
 --- !u!4 &1915953184
 Transform:
   m_ObjectHideFlags: 0
@@ -300,3 +315,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1915953185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1915953180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8169baaded5dd0f4db304541f296e17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ships: []

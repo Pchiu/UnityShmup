@@ -5,6 +5,7 @@ public class GameDataManager : MonoBehaviour {
 
     public static GameDataManager Instance;
     public LevelDataManager LevelManager;
+    public MovementPatternDataManager MovementPatternManager;
 
     void Awake()
     {

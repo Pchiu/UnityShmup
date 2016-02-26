@@ -11,7 +11,7 @@ public class LevelDataManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        Levels = new Dictionary<string, Level>();
+        //Levels = new Dictionary<string, Level>();
     }
 
     public void AddLevel(string levelName)
