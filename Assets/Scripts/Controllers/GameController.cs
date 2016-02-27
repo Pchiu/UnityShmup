@@ -9,7 +9,9 @@ public class GameController : MonoBehaviour {
     public LevelController LevelController;
     public PlayerController PlayerController;
     public ShipController ShipController;
-    
+
+    public bool Paused;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,4 +36,10 @@ public class GameController : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void TogglePause()
+    {
+        Paused = !Paused;
+        PlayerController.InputEnabled = !Paused;
+    }
 }

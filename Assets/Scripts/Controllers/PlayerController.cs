@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     float xMax;
     float yMin;
     float yMax;
+    
     // Use this for initialization
     void Start () {
         SetBounds();
