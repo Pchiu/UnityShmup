@@ -89,7 +89,6 @@
     <Compile Include="Assets\Scripts\Movement\MovementPattern.cs" />
     <Compile Include="Assets\Scripts\Movement\VectorMovementAction.cs" />
     <Compile Include="Assets\Scripts\Movement\WaypointMovementAction.cs" />
-    <Compile Include="Assets\Scripts\Pause.cs" />
     <Compile Include="Assets\Scripts\Ships\Boss.cs" />
     <Compile Include="Assets\Scripts\Ships\BossPart.cs" />
     <Compile Include="Assets\Scripts\Ships\Enemy.cs" />
@@ -104,6 +103,10 @@
     <Compile Include="Assets\Scripts\Shots\ShortBeam.cs" />
     <Compile Include="Assets\Scripts\Shots\Shot.cs" />
     <Compile Include="Assets\Scripts\SpawnPattern.cs" />
+    <Compile Include="Assets\Scripts\UI\GameMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\PauseBehavior.cs" />
+    <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

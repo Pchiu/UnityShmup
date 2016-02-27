@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -10,7 +10,31 @@ public class GameController : MonoBehaviour {
     public PlayerController PlayerController;
     public ShipController ShipController;
 
-    public bool Paused;
+    private bool _paused;
+    public bool Paused
+    {
+        get
+        {
+            return _paused;
+        }
+        set
+        {
+            _paused = value;
+            Time.timeScale = value ? 0 : 1;
+            PlayerController.InputEnabled = !value;
+
+            if (value)
+            {
+                Debug.Log("Paused");
+                SceneManager.LoadScene(SceneNames.PauseMenu, LoadSceneMode.Additive);
+            }
+            else
+            {
+                Debug.Log("Unpaused");
+                SceneManager.UnloadScene(SceneNames.PauseMenu);
+            }
+        }
+    }
 
     void Awake()
     {
@@ -34,12 +58,11 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+
+    }
 
     public void TogglePause()
     {
         Paused = !Paused;
-        PlayerController.InputEnabled = !Paused;
     }
 }
