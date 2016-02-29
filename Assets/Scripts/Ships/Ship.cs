@@ -26,7 +26,6 @@ public class Ship : Entity {
 	public virtual void Update () {
         MovementVector = transform.position - LastPosition;
         LastPosition = transform.position;
-        //Debug.Log(MovementVector);
 	    foreach (Effect effect in Effects)
         {
             if (effect.EffectType == EffectTypes.ThrusterAnimation)
@@ -37,11 +36,7 @@ public class Ship : Entity {
                     if (MovementVector != Vector3.zero)
                     {
                         Quaternion movementRotation = Quaternion.LookRotation(Vector3.forward, MovementVector);
-                        //Debug.Log(movementRotation);
                         float angle = Quaternion.Angle(movementRotation, effect.transform.rotation);
-                        //float angle = Mathf.Abs(movementRotation.eulerAngles.z - effect.transform.rotation.eulerAngles.z);
-                        Debug.Log(angle);
-                        // Change this to use 
                         if (angle <= 45)
                         {
                             animator.SetFloat("ThrustCoefficient", 1);
@@ -55,8 +50,6 @@ public class Ship : Entity {
                     {
                         animator.SetFloat("ThrustCoefficient", 0);
                     }
-                    //Debug.Log(coefficient);
-                    
                 }
             }
         }

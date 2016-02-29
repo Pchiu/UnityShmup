@@ -2,11 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class WaypointMovementAction {
+public class WaypointMovementAction : MovementAction {
 
-    public Vector2 Destination;
-    public int Time;
-    public List<Vector2> ControlPoints;
+    public readonly Vector2 Origin;
+    public readonly List<Vector2> ControlPoints;
+
+    public WaypointMovementAction (Vector2 origin, List<Vector2> controlPoints, float time)
+    {
+        this.Origin = origin;
+        this.ControlPoints = controlPoints;
+        this.Time = time;
+    }
     // Use this for initialization
     void Start () {
 	

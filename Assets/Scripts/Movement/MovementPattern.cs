@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MovementPattern {
 
-    public List<MovementAction> MovementQueue;
+    public Queue<MovementAction> MovementQueue;
 	// Use this for initialization
 	void Start () {
 	

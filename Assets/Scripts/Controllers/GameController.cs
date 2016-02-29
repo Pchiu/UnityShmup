@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
+    public static GameController Instance;
     public LevelController LevelController;
     public PlayerController PlayerController;
-    public static GameController Instance;
+    public ShipController ShipController;
     
     void Awake()
     {
@@ -23,7 +24,11 @@ public class GameController : MonoBehaviour {
 
         GameDataManager.Instance.LevelManager.CreateTestLevel();
         PlayerController.CreateTestShip();
-	}
+        GameDataManager.Instance.MovementPatternManager.CreateTestMovementPattern();
+
+        Enemy enemy = ShipController.SpawnEnemy("Enemy", new Vector2(-5, 0));
+        enemy.MovementPattern = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestPattern"];
+    }
 	
 	// Update is called once per frame
 	void Update () {
