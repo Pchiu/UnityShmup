@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour {
         PlayerController.CreateTestShip();
         GameDataManager.Instance.MovementPatternManager.CreateTestMovementPattern();
 
-        Enemy enemy = ShipController.SpawnEnemy("Enemy", new Vector2(-5, 0));
+        Enemy enemy = ShipController.SpawnEnemy("Enemy", new Vector2(-5, 0), 0);
         enemy.MovementPattern = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestPattern"];
     }
 	

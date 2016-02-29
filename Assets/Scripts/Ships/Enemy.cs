@@ -75,7 +75,7 @@ public class Enemy : Ship {
         else
         {
             var VectorAction = (VectorMovementAction)CurrentAction;
-            Direction = new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed;
+            Direction = transform.InverseTransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
         }
         ElapsedMovementTime = 0;
     }
