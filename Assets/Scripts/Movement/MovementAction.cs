@@ -4,8 +4,9 @@ using System.Collections;
 public abstract class MovementAction{
 
     public float Time;
-	// Use this for initialization
-	void Start () {
+    public string ReferenceFrame;
+    // Use this for initialization
+    void Start () {
 	
 	}
 	

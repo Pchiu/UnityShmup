@@ -11,7 +11,7 @@ public class Enemy : Ship {
     private List<Vector2> CurrentWaypoints;
     private Vector3 CurrentDirection;
     private float ElapsedMovementTime;
-
+    private bool FacePlayer;
 
 	// Use this for initialization
 	void Start () {
@@ -20,10 +20,20 @@ public class Enemy : Ship {
         CurrentAction = null;
         CurrentWaypoints = new List<Vector2>();
         StartCoroutine("Move");
+        FacePlayer = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (FacePlayer)
+        {
+            if (GameController.Instance.PlayerController.IsPlayerAlive())
+            {
+                Vector3 playerDirection = GameController.Instance.PlayerController.PlayerShip.transform.position - transform.position;
+                Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, playerDirection);
+                transform.rotation = targetRotation;
+            }
+        }
 	}
 
     public IEnumerator Move()
@@ -91,7 +101,14 @@ public class Enemy : Ship {
         else
         {
             var VectorAction = (VectorMovementAction)CurrentAction;
-            CurrentDirection = transform.InverseTransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
+            if (VectorAction.ReferenceFrame == "Local")
+            {
+                CurrentDirection = transform.InverseTransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
+            }
+            else
+            {
+                CurrentDirection = new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed;
+            }
         }
         ElapsedMovementTime = 0;
     }

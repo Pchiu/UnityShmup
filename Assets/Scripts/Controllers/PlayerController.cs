@@ -5,7 +5,7 @@ using Enums;
 
 public class PlayerController : MonoBehaviour {
 
-    public PlayerShip Ship;
+    public PlayerShip PlayerShip;
     public bool InputEnabled;
     public bool AllRange;
     float xMin;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
         gun1.FireMode = FireModes.Single;
         ship.Subsystems.Add(gun1);
 
-        Ship = ship;
+        PlayerShip = ship;
     }
 
     // Update is called once per frame
@@ -78,11 +78,11 @@ public class PlayerController : MonoBehaviour {
             MoveShip();
             if (Input.GetButtonDown("Fire1"))
             {
-                Ship.ToggleWeapons(true);
+                PlayerShip.ToggleWeapons(true);
             }
             if (Input.GetButtonUp("Fire1"))
             {
-                Ship.ToggleWeapons(false);
+                PlayerShip.ToggleWeapons(false);
             }
         }
     }
@@ -103,16 +103,21 @@ public class PlayerController : MonoBehaviour {
     private void MoveShip()
     {
         Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
-        Ship.transform.position += move * Ship.Speed * Time.deltaTime;
-        var clampedX = Mathf.Clamp(Ship.transform.position.x, xMin, xMax);
-        var clampedY = Mathf.Clamp(Ship.transform.position.y, yMin, yMax);
-        Ship.transform.position = new Vector3(clampedX, clampedY, Ship.transform.position.z);
+        PlayerShip.transform.position += move * PlayerShip.Speed * Time.deltaTime;
+        var clampedX = Mathf.Clamp(PlayerShip.transform.position.x, xMin, xMax);
+        var clampedY = Mathf.Clamp(PlayerShip.transform.position.y, yMin, yMax);
+        PlayerShip.transform.position = new Vector3(clampedX, clampedY, PlayerShip.transform.position.z);
     }
 
     private void RotateShip()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, mousePos - Ship.transform.position);
-        Ship.transform.rotation = Quaternion.RotateTowards(Ship.transform.rotation, targetRotation, Ship.TurnRate * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, mousePos - PlayerShip.transform.position);
+        PlayerShip.transform.rotation = Quaternion.RotateTowards(PlayerShip.transform.rotation, targetRotation, PlayerShip.TurnRate * Time.deltaTime);
+    }
+
+    public bool IsPlayerAlive()
+    {
+        return (PlayerShip != null);
     }
 }
