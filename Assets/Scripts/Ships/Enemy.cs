@@ -8,7 +8,8 @@ public class Enemy : Ship {
     private float ElapsedTimeFraction;
     private MovementAction CurrentAction;
     private Vector2 StartPosition, EndPosition;
-    private Vector3 Direction;
+    private List<Vector2> CurrentWaypoints;
+    private Vector3 CurrentDirection;
     private float ElapsedMovementTime;
 
 
@@ -17,6 +18,7 @@ public class Enemy : Ship {
         StartPosition = transform.position;
         ElapsedMovementTime = 0f;
         CurrentAction = null;
+        CurrentWaypoints = new List<Vector2>();
         StartCoroutine("Move");
 	}
 	
@@ -30,33 +32,29 @@ public class Enemy : Ship {
         {
             SetCurrentAction();
         }
-        while (MovementPattern.MovementQueue.Count > 0)
+        while (CurrentAction != null)
         {
-            if (CurrentAction == null || ElapsedMovementTime > CurrentAction.Time)
+            if (ElapsedMovementTime > CurrentAction.Time)
             {
-                MovementPattern.MovementQueue.Dequeue();
                 if (MovementPattern.MovementQueue.Count == 0)
                 {
+                    CurrentAction = null;
                     continue;
                 }
-                SetCurrentAction();
+                else
+                {
+                    SetCurrentAction();
+                }
             }
-
             if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
             {
                 var WaypointAction = (WaypointMovementAction)CurrentAction;
                 ElapsedTimeFraction = ElapsedMovementTime / WaypointAction.Time;
-
-                List<Vector2> points = new List<Vector2>();
-                points.Add(StartPosition);
-                points.AddRange(WaypointAction.ControlPoints);
-                points.Add(EndPosition);
-
-                transform.position = CalculateCurvePosition(points, ElapsedTimeFraction);
+                transform.position = CalculateCurvePosition(CurrentWaypoints, ElapsedTimeFraction);
             }
             else
             {
-                transform.position += Direction * Time.deltaTime;
+                transform.position += CurrentDirection * Time.deltaTime;
             }
             ElapsedMovementTime += Time.deltaTime;
             yield return null;
@@ -65,17 +63,35 @@ public class Enemy : Ship {
 
     public void SetCurrentAction()
     {
-        CurrentAction = MovementPattern.MovementQueue.Peek();
+        CurrentAction = MovementPattern.MovementQueue.Dequeue();
         if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
         {
             var WaypointAction = (WaypointMovementAction)CurrentAction;
-            StartPosition = transform.position;
-            EndPosition = WaypointAction.Origin;
+            CurrentWaypoints.Clear();
+            CurrentWaypoints.Add(transform.position);
+            if (WaypointAction.ReferenceFrame == "Local")
+            {
+                Vector3 direction = Vector2.zero;
+                foreach (Vector2 controlPoint in WaypointAction.ControlPoints)
+                {
+                    direction = transform.InverseTransformDirection(new Vector3(controlPoint.x, controlPoint.y) - transform.position);
+                    CurrentWaypoints.Add(transform.position + direction);
+                }
+
+                direction = transform.InverseTransformDirection(new Vector3(WaypointAction.Origin.x, WaypointAction.Origin.y) - transform.position);
+                CurrentWaypoints.Add(transform.position + direction);
+            }
+            else
+            {
+                CurrentWaypoints.AddRange(WaypointAction.ControlPoints);
+                CurrentWaypoints.Add(WaypointAction.Origin);
+            }
+            
         }
         else
         {
             var VectorAction = (VectorMovementAction)CurrentAction;
-            Direction = transform.InverseTransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
+            CurrentDirection = transform.InverseTransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
         }
         ElapsedMovementTime = 0;
     }
