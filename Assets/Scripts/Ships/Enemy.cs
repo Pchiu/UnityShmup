@@ -19,7 +19,7 @@ public class Enemy : Ship {
         CurrentAction = null;
         CurrentWaypoints = new List<Vector2>();
         StartCoroutine("Move");
-        FacePlayer = true;
+        FacePlayer = false;
 	}
 	
 	// Update is called once per frame
@@ -33,6 +33,7 @@ public class Enemy : Ship {
                 transform.rotation = targetRotation;
             }
         }
+        base.Update();
 	}
 
     public IEnumerator Move()
@@ -73,6 +74,7 @@ public class Enemy : Ship {
 
     public void SetCurrentAction()
     {
+        Debug.Log(transform.rotation);
         CurrentAction = MovementQueue.Dequeue();
         if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
         {
@@ -84,11 +86,11 @@ public class Enemy : Ship {
                 Vector3 direction = Vector2.zero;
                 foreach (Vector2 controlPoint in WaypointAction.ControlPoints)
                 {
-                    direction = transform.InverseTransformDirection(controlPoint);
+                    direction = transform.TransformDirection(controlPoint);
                     CurrentWaypoints.Add(transform.position + direction);
                 }
 
-                direction = transform.InverseTransformDirection(WaypointAction.Origin);
+                direction = transform.TransformDirection(WaypointAction.Origin);
                 CurrentWaypoints.Add(transform.position + direction);
             }
             else

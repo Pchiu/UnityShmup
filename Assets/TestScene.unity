@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebb33295763e5a40b9d2d9346520260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ship: {fileID: 0}
+  PlayerShip: {fileID: 0}
   InputEnabled: 0
   AllRange: 0
 --- !u!114 &1915953182
