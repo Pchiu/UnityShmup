@@ -47,6 +47,7 @@ public class Enemy : Ship {
         {
             if (ElapsedMovementTime > CurrentAction.Time)
             {
+                transform.position = Utilities.CalculateCurvePosition(CurrentWaypoints, 1);
                 if (MovementQueue.Count == 0)
                 {
                     CurrentAction = null;
