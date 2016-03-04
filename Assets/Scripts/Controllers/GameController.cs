@@ -23,11 +23,16 @@ public class GameController : MonoBehaviour {
     void Start () {
 
         GameDataManager.Instance.LevelManager.CreateTestLevel();
-        PlayerController.CreateTestShip();
         GameDataManager.Instance.MovementPatternManager.CreateTestMovementPattern();
+        GameDataManager.Instance.MovementPatternManager.CreateTestShotPattern();
 
-        Enemy enemy = ShipController.SpawnEnemy("Enemy", new Vector2(-5, 0), 90);
+        PlayerController.CreateTestShip();
+
+        Enemy enemy = ShipController.SpawnEnemy("Interceptor1", new Vector2(0, 0), 90);
         enemy.MovementPattern = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestPattern"];
+
+        //Enemy enemy2 = ShipController.SpawnEnemy("Interceptor1", new Vector2(-5, 2), 45);
+        //enemy2.MovementPattern = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestPattern"];
     }
 	
 	// Update is called once per frame
