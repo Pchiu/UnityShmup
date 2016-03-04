@@ -47,7 +47,10 @@ public class Enemy : Ship {
         {
             if (ElapsedMovementTime > CurrentAction.Time)
             {
-                transform.position = Utilities.CalculateCurvePosition(CurrentWaypoints, 1);
+                if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
+                { 
+                    transform.position = Utilities.CalculateCurvePosition(CurrentWaypoints, 1);
+                }
                 if (MovementQueue.Count == 0)
                 {
                     CurrentAction = null;
@@ -75,7 +78,6 @@ public class Enemy : Ship {
 
     public void SetCurrentAction()
     {
-        Debug.Log(transform.rotation);
         CurrentAction = MovementQueue.Dequeue();
         if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
         {
@@ -106,7 +108,7 @@ public class Enemy : Ship {
             var VectorAction = (VectorMovementAction)CurrentAction;
             if (VectorAction.ReferenceFrame == "Local")
             {
-                CurrentDirection = transform.InverseTransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
+                CurrentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
             }
             else
             {
