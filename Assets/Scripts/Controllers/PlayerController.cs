@@ -30,9 +30,16 @@ public class PlayerController : MonoBehaviour {
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(-0.1f, 0)));
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(0.1f, 0)));
 
+        /*
         GameObject shotObject = Resources.Load("Prefabs/Beam1") as GameObject;
         Shot shot = shotObject.GetComponent<Shot>();
         shotObject.tag = "FriendlyShot";
+        */
+
+        GameObject shotObject = Resources.Load("Prefabs/BulletAnimated") as GameObject;
+        Projectile shot = shotObject.GetComponent<Projectile>();
+        shotObject.tag = "FriendlyShot";
+        shot.MovementPattern = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestShotPattern"];
 
         GameObject gun1Object = Instantiate(Resources.Load("Prefabs/Gun")) as GameObject;
 
@@ -56,9 +63,9 @@ public class PlayerController : MonoBehaviour {
         pattern1.Entities = new List<Entity>();
         pattern1.Entities.Add(shot);
         pattern1.TimeOffsets.Add(0);
-        pattern1.TimeOffsets.Add(150);
-        pattern1.TimeOffsets.Add(300);
-        pattern1.TotalTime = 800;
+        //pattern1.TimeOffsets.Add(150);
+        //pattern1.TimeOffsets.Add(300);
+        pattern1.TotalTime = 100;
 
         gun1.FirePattern = pattern1;
         gun1.FireMode = FireModes.Single;

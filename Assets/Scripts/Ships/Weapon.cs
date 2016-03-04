@@ -54,20 +54,21 @@ public class Weapon : Subsystem {
                             switch (FireMode)
                             {
                                 case FireModes.Loop:
-                                    Instantiate(shot, ShotOrigins[ShotOriginIndex].position, ShotOrigins[ShotOriginIndex].rotation);
+                                    SpawnShot(shot, ShotOrigins[ShotOriginIndex].position, ShotOrigins[ShotOriginIndex].rotation);
                                     ShotOriginIndex++;
                                     if (ShotOriginIndex >= ShotOrigins.Count)
                                     {
                                         ShotOriginIndex = 0;
                                     }
+
                                     break;
                                 case FireModes.Random:
-                                    int randomIndex = RandomGenerator.Next(0, ShotOrigins.Count);
-                                    Instantiate(shot, ShotOrigins[randomIndex].position, ShotOrigins[randomIndex].rotation);
+                                    ShotOriginIndex = RandomGenerator.Next(0, ShotOrigins.Count);
+                                    SpawnShot(shot, ShotOrigins[ShotOriginIndex].position, ShotOrigins[ShotOriginIndex].rotation);
                                     break;
                                 case FireModes.Single:
                                 default:
-                                    Instantiate(shot, ShotOrigins[0].position, ShotOrigins[0].rotation);
+                                    SpawnShot(shot, ShotOrigins[ShotOriginIndex].position, ShotOrigins[ShotOriginIndex].rotation);
                                     break;
                             }
                             Index++;
@@ -78,6 +79,17 @@ public class Weapon : Subsystem {
             }
         }
 	}
+
+    public void SpawnShot(Shot shot, Vector3 position, Quaternion rotation)
+    {
+        var newShot = Instantiate(shot, position, rotation);
+        if (newShot.GetType().ToString() == "Projectile")
+        {
+            var newProjectile = (Projectile)newShot;
+            Projectile projectile = shot.GetComponent<Projectile>();
+            newProjectile.MovementPattern = projectile.MovementPattern;
+        }
+    }
 
     public override void Action()
     {
