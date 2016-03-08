@@ -13,19 +13,9 @@ public class PlayerShip : Ship {
 	
 	// Update is called once per frame
 	void Update () {
+        MovementVector = transform.position - LastPosition;
+        LastPosition = transform.position;
         base.Update();    
 	}
 
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        Projectile projectile = collider.gameObject.GetComponent<Projectile>();
-        if (projectile != null)
-        {
-            if (projectile.tag == "HostileShot")
-            {
-                Hull -= projectile.Damage;
-                // Call Projectile's death function here
-            }
-        }
-    }
 }

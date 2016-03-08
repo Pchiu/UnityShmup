@@ -2,76 +2,83 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Enemy : Ship {
+public class Movable : Entity {
 
-    /*
     public MovementPattern MovementPattern;
-    private float ElapsedTimeFraction;
-    private Queue<MovementAction> MovementQueue;
-    private MovementAction CurrentAction;
-    private List<Vector2> CurrentWaypoints;
-    private Vector3 CurrentDirection;
-    private float ElapsedMovementTime;
-    private bool FacePlayer;
+    public float TurnRate;
+    protected Queue<MovementAction> MovementQueue;
+    protected float ElapsedTimeFraction;
+    protected MovementAction CurrentAction;
+    protected List<Vector2> CurrentWaypoints;
+    protected Vector3 CurrentDirection;
+    protected float ElapsedMovementTime;
+    public bool FaceTarget;
+    public Transform Target;
+    public Vector3 MovementVector;
+    // Use this for initialization
+    public virtual void Start () {
+    }
 
-	// Use this for initialization
-	void Start () {
+    public virtual void Awake()
+    {
         ElapsedMovementTime = 0f;
-        CurrentAction = null;
         CurrentWaypoints = new List<Vector2>();
-        BeginMovement();
-        FacePlayer = true;
+        CurrentAction = null;
+        FaceTarget = false;
+        Target = null;
+        MovementVector = new Vector3(0, 0, 0);
+    }
+
+    // Update is called once per frame
+    public virtual void Update () {
+	    if (FaceTarget && Target != null)
+        {
+            Vector3 targetDirection = Target.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, TurnRate * Time.deltaTime); ;
+        }
 	}
 
     public void BeginMovement()
     {
         StartCoroutine("Move");
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (FacePlayer)
-        {
-            if (GameController.Instance.PlayerController.IsPlayerAlive())
-            {
-                Vector3 playerDirection = GameController.Instance.PlayerController.PlayerShip.transform.position - transform.position;
-                Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, playerDirection);
-                transform.rotation = targetRotation;
-            }
-        }
-        base.Update();
-	}
 
     public IEnumerator Move()
     {
         if (MovementPattern != null)
         {
             MovementQueue = new Queue<MovementAction>(MovementPattern.MovementQueue);
-            SetCurrentAction();
+            SetCurrentMovementAction();
         }
         while (CurrentAction != null)
         {
             if (ElapsedMovementTime > CurrentAction.Time)
             {
                 if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
-                { 
-                    transform.position = Utilities.CalculateCurvePosition(CurrentWaypoints, 1);
+                {
+                    Vector2 newPosition = Utilities.CalculateCurvePosition(CurrentWaypoints, 1);
+                    MovementVector = new Vector3(newPosition.x, newPosition.y) - transform.position;
+                    transform.position = newPosition;
                 }
                 if (MovementQueue.Count == 0)
                 {
                     CurrentAction = null;
+                    MovementVector = Vector3.zero;
                     continue;
                 }
                 else
                 {
-                    SetCurrentAction();
+                    SetCurrentMovementAction();
                 }
             }
             if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
             {
                 var WaypointAction = (WaypointMovementAction)CurrentAction;
                 ElapsedTimeFraction = ElapsedMovementTime / WaypointAction.Time;
-                transform.position = Utilities.CalculateCurvePosition(CurrentWaypoints, ElapsedTimeFraction);
+                Vector2 newPosition = Utilities.CalculateCurvePosition(CurrentWaypoints, ElapsedTimeFraction);
+                MovementVector = new Vector3(newPosition.x, newPosition.y) - transform.position;
+                transform.position = newPosition;
             }
             else
             {
@@ -81,13 +88,15 @@ public class Enemy : Ship {
                     CurrentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
                 }
                 transform.position += CurrentDirection * Time.deltaTime;
+                MovementVector = CurrentDirection;
             }
+            
             ElapsedMovementTime += Time.deltaTime;
             yield return null;
         }
     }
 
-    public void SetCurrentAction()
+    public void SetCurrentMovementAction()
     {
         CurrentAction = MovementQueue.Dequeue();
         if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
@@ -112,7 +121,7 @@ public class Enemy : Ship {
                 CurrentWaypoints.AddRange(WaypointAction.ControlPoints);
                 CurrentWaypoints.Add(WaypointAction.Origin);
             }
-            
+
         }
         else
         {
@@ -128,5 +137,14 @@ public class Enemy : Ship {
         }
         ElapsedMovementTime = 0;
     }
-    */
+
+    public void SetTarget(Transform target)
+    {
+        Target = target;
+    }
+
+    public void ToggleRotateTowardsTarget(bool value)
+    {
+        FaceTarget = value;
+    }
 }
