@@ -68,6 +68,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Base\AbstractClasses\AbstractCollidable.cs" />
+    <Compile Include="Assets\Scripts\Base\AbstractClasses\AbstractDrawable.cs" />
+    <Compile Include="Assets\Scripts\Base\AbstractClasses\AbstractIdentifiable.cs" />
+    <Compile Include="Assets\Scripts\Base\AbstractClasses\AbstractMovable.cs" />
+    <Compile Include="Assets\Scripts\Base\AbstractClasses\AbstractMovableCollidable.cs" />
+    <Compile Include="Assets\Scripts\Base\Interfaces\ICollidable.cs" />
+    <Compile Include="Assets\Scripts\Base\Interfaces\IDrawable.cs" />
+    <Compile Include="Assets\Scripts\Base\Interfaces\IIdentifiable.cs" />
+    <Compile Include="Assets\Scripts\Base\Interfaces\IMovable.cs" />
+    <Compile Include="Assets\Scripts\Base\Interfaces\iShot.cs" />
     <Compile Include="Assets\Scripts\Base\Movable.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
