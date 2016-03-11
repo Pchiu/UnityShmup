@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour {
         ship.Subsystems = new List<Subsystem>();
         ship.Effects = new List<Effect>();
 
+        GameObject shipCoreObject = Instantiate(Resources.Load("Prefabs/ShipCore")) as GameObject;
+        ShipCore shipCore = shipCoreObject.GetComponent<ShipCore>();
+        shipCoreObject.transform.parent = ship.transform;
+        shipCore.Ship = ship;
+        shipCore.tag = "Friendly";
+        ship.Core = shipCore;
+
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(-0.1f, 0)));
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(0.1f, 0)));
 
@@ -35,7 +42,7 @@ public class PlayerController : MonoBehaviour {
         Shot shot = shotObject.GetComponent<Shot>();
         shotObject.tag = "FriendlyShot";
         */
-
+        
         GameObject shotObject = Resources.Load("Prefabs/BulletAnimated") as GameObject;
         Projectile shot = shotObject.GetComponent<Projectile>();
         shotObject.tag = "FriendlyShot";
@@ -46,6 +53,7 @@ public class PlayerController : MonoBehaviour {
         Weapon gun1 = gun1Object.GetComponent<Weapon>();
         gun1.transform.parent = ship.transform;
         gun1.transform.position = ship.Hardpoints[0].Position;
+        gun1.ParentShip = PlayerShip;
 
         GameObject engineFlareObject = Instantiate(Resources.Load("Prefabs/EngineFlare1"), new Vector3(0, -.4f, 0), ship.transform.rotation) as GameObject;
         Effect engineFlare = engineFlareObject.GetComponent<Effect>();
@@ -57,19 +65,29 @@ public class PlayerController : MonoBehaviour {
         engineFlare2.transform.parent = ship.transform;
         ship.Effects.Add(engineFlare2);
 
-
         FirePattern pattern1 = new FirePattern();
         pattern1.TimeOffsets = new List<int>();
         pattern1.Entities = new List<Entity>();
         pattern1.Entities.Add(shot);
         pattern1.TimeOffsets.Add(0);
-        //pattern1.TimeOffsets.Add(150);
-        //pattern1.TimeOffsets.Add(300);
-        pattern1.TotalTime = 100;
+        pattern1.TimeOffsets.Add(100);
+        pattern1.TimeOffsets.Add(200);
+        pattern1.TotalTime = 500;
 
         gun1.FirePattern = pattern1;
         gun1.FireMode = FireModes.Single;
         ship.Subsystems.Add(gun1);
+
+        GameObject parryShieldObject = new GameObject();
+        parryShieldObject.transform.parent = ship.transform;
+        ParrySubsystem parryShield = parryShieldObject.AddComponent<ParrySubsystem>();
+        parryShield.ParentShip = ship;
+        parryShield.Type = Enums.SusbsystemTypes.Ability;
+        parryShield.Cooldown = 1.0f;
+        parryShield.Duration = 1.0f;
+
+        ship.Subsystems.Add(parryShield);
+        
 
         PlayerShip = ship;
     }
@@ -90,6 +108,10 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetButtonUp("Fire1"))
             {
                 PlayerShip.ToggleWeapons(false);
+            }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                PlayerShip.ActivateParry();
             }
         }
     }

@@ -76,4 +76,17 @@ public class Ship : Movable {
             Destroy(this.gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Ship ship = collider.gameObject.GetComponent<Ship>();
+        if (ship != null)
+        {
+            if (this.tag == "Friendly" && ship.tag == "Hostile" ||
+                this.tag == "Hostile" && ship.tag == "Friendly")
+            {
+                Debug.Log("Collision");
+            }
+        }
+    }
 }

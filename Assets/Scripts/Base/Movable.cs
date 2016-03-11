@@ -12,6 +12,7 @@ public class Movable : Entity {
     protected List<Vector2> CurrentWaypoints;
     protected Vector3 CurrentDirection;
     protected float ElapsedMovementTime;
+    protected Vector3 PreviousLocation;
     public bool FaceTarget;
     public Transform Target;
     public Vector3 MovementVector;
@@ -35,16 +36,37 @@ public class Movable : Entity {
         {
             Vector3 targetDirection = Target.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, TurnRate * Time.deltaTime); ;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, TurnRate * Time.deltaTime);
         }
 	}
 
-    public void BeginMovement()
+    public void Move()
     {
-        StartCoroutine("Move");
+        StartCoroutine(MoveCoroutine());
     }
 
-    public IEnumerator Move()
+    public void Rotate(float angle, float time)
+    {
+        StartCoroutine(RotateCoroutine(angle, time));
+    }
+
+    public IEnumerator RotateCoroutine(float angle, float time)
+    {
+        var elapsedTime = 0f;
+        var clampedTurnAmount = angle > TurnRate ? TurnRate / time : angle / time;
+        var targetDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * angle), Mathf.Cos(Mathf.Deg2Rad * angle)));
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
+        while (elapsedTime < time)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, clampedTurnAmount * Time.deltaTime);
+            yield return null;
+        }
+
+        // Clamp ending rotation;
+        transform.rotation = targetRotation;       
+    }
+
+    public IEnumerator MoveCoroutine()
     {
         if (MovementPattern != null)
         {

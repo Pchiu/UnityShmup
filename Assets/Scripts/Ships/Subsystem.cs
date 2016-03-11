@@ -5,7 +5,9 @@ using Enums;
 public abstract class Subsystem : Entity {
 
     public SusbsystemTypes Type;
+    public Ship ParentShip;
     public bool Active;
+    public bool Ready;
 	// Use this for initialization
 	void Start () {
 	
