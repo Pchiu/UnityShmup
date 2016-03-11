@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Shot : Entity {
+public class Shot : Movable {
 
     public int Damage;
     public SpawnPattern FirePattern;

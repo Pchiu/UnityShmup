@@ -4,17 +4,14 @@ using System.Collections;
 public class ShortBeam : Shot {
 
     public float BeamLength;
-    public GameObject BeamStartObject;
-    public GameObject BeamMiddleObject;    
+    public GameObject BeamStart;
+    public GameObject BeamMiddle;    
     private float BeamMiddleHeight;
     private float BeamStartHeight;
-    private GameObject BeamMiddle;
-    private GameObject BeamStart;
 	// Use this for initialization
 	void Start () {
-        BeamLength = 20f;
-        BeamMiddleHeight = BeamMiddleObject.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
-        BeamStartHeight = BeamStartObject.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+        BeamStartHeight = BeamStart.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+        BeamMiddleHeight = BeamMiddle.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
         Fire();
         Destroy(this.gameObject);
     }
@@ -35,12 +32,10 @@ public class ShortBeam : Shot {
                 }
             }
         }
-        BeamStart = Instantiate(BeamStartObject, transform.position + transform.TransformDirection(new Vector3(0, BeamStartHeight / 2, 0)), transform.rotation) as GameObject;
-        BeamMiddle = Instantiate(BeamMiddleObject, transform.position + transform.TransformDirection(Vector3.up) * (BeamLength / 2) + transform.TransformDirection(new Vector3(0, BeamStartHeight/2, 0)), transform.rotation) as GameObject;
-        BeamStart.GetComponent<SpriteRenderer>().color = this.Color;
-        BeamMiddle.GetComponent<SpriteRenderer>().color = this.Color;
-        BeamMiddle.transform.localScale = new Vector3(1, (BeamLength - BeamStartHeight) * (1 / BeamMiddleHeight) , 1);
+        var beamStartObject = Instantiate(BeamStart, transform.position + transform.TransformDirection(new Vector3(0, BeamStartHeight / 2, 0)), transform.rotation) as GameObject;
+        var beamMiddleObject= Instantiate(BeamMiddle, transform.position + transform.TransformDirection(Vector3.up) * (BeamLength / 2) + transform.TransformDirection(new Vector3(0, BeamStartHeight/2, 0)), transform.rotation) as GameObject;
+        beamStartObject.GetComponent<SpriteRenderer>().color = this.Color;
+        beamMiddleObject.GetComponent<SpriteRenderer>().color = this.Color;
+        beamMiddleObject.transform.localScale = new Vector3(1, (BeamLength - BeamStartHeight) * (1 / BeamMiddleHeight) , 1);
     }
-
-    
 }

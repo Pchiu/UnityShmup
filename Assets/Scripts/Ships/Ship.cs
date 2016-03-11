@@ -3,29 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using Enums;
 
-public class Ship : Entity {
+public class Ship : Movable {
 
     public int Hull = 1;
     public List<Subsystem> Subsystems;
     public List<Hardpoint> Hardpoints;
-    public float TurnRate;
+
     public bool IsInvulnerable;
     public List<Effect> Effects;
-    private Vector3 LastPosition;
-    private Vector3 MovementVector;
-
-	// Use this for initialization
-	void Start () {
+    protected Vector3 LastPosition;
+    
+    void Awake()
+    {
+        base.Awake();
         Subsystems = new List<Subsystem>();
         Hardpoints = new List<Hardpoint>();
         LastPosition = transform.position;
-        MovementVector = new Vector3(0, 0, 0);
+    }
+    // Use this for initialization
+    void Start () {
+        
 	}
 	
 	// Update is called once per frame
 	public virtual void Update () {
-        MovementVector = transform.position - LastPosition;
-        LastPosition = transform.position;
 	    foreach (Effect effect in Effects)
         {
             if (effect.EffectType == EffectTypes.ThrusterAnimation)
@@ -53,6 +54,7 @@ public class Ship : Entity {
                 }
             }
         }
+        base.Update();
 	}
 
     public void ToggleWeapons(bool toggle)

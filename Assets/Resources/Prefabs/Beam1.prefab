@@ -43,9 +43,9 @@ MonoBehaviour:
   Damage: 2
   HitAnimation: {fileID: 0}
   Color: {r: 0, g: 0.8758622, b: 1, a: 1}
-  BeamLength: 0
-  BeamStartObject: {fileID: 192772, guid: 18222d0c91325c24c94193ec6312bc49, type: 2}
-  BeamMiddleObject: {fileID: 124440, guid: 25a1a6bbcc7a73d4fbdda78912da0d74, type: 2}
+  BeamLength: 20
+  BeamStart: {fileID: 192772, guid: 18222d0c91325c24c94193ec6312bc49, type: 2}
+  BeamMiddle: {fileID: 124440, guid: 25a1a6bbcc7a73d4fbdda78912da0d74, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -76,6 +76,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Color.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BeamStart
+      value: 
+      objectReference: {fileID: 192772, guid: 18222d0c91325c24c94193ec6312bc49, type: 2}
+    - target: {fileID: 0}
+      propertyPath: BeamMiddle
+      value: 
+      objectReference: {fileID: 124440, guid: 25a1a6bbcc7a73d4fbdda78912da0d74, type: 2}
+    - target: {fileID: 0}
+      propertyPath: BeamLength
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
