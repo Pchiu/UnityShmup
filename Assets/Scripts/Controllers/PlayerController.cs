@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 
     public void CreateTestShip()
     {
+        /*
         GameObject shipObject = Instantiate(Resources.Load("Prefabs/Fighter")) as GameObject;
         PlayerShip ship = shipObject.GetComponent<PlayerShip>();
         ship.Subsystems = new List<Subsystem>();
@@ -30,11 +31,11 @@ public class PlayerController : MonoBehaviour {
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(-0.1f, 0)));
         ship.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(0.1f, 0)));
 
-        /*
+        
         GameObject shotObject = Resources.Load("Prefabs/Beam1") as GameObject;
         Shot shot = shotObject.GetComponent<Shot>();
         shotObject.tag = "FriendlyShot";
-        */
+        
 
         GameObject shotObject = Resources.Load("Prefabs/BulletAnimated") as GameObject;
         Projectile shot = shotObject.GetComponent<Projectile>();
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour {
         ship.Subsystems.Add(gun1);
 
         PlayerShip = ship;
+        */
     }
 
     // Update is called once per frame

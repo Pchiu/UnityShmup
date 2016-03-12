@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\Enums\AreaTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\EffectTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\FireModes.cs" />
+    <Compile Include="Assets\Scripts\Enums\ShipSectionTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\ShotTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\SubsystemTypes.cs" />
     <Compile Include="Assets\Scripts\FirePattern.cs" />
@@ -103,12 +104,10 @@
     <Compile Include="Assets\Scripts\Movement\MovementPattern.cs" />
     <Compile Include="Assets\Scripts\Movement\VectorMovementAction.cs" />
     <Compile Include="Assets\Scripts\Movement\WaypointMovementAction.cs" />
-    <Compile Include="Assets\Scripts\Ships\Boss.cs" />
-    <Compile Include="Assets\Scripts\Ships\BossPart.cs" />
-    <Compile Include="Assets\Scripts\Ships\Enemy.cs" />
     <Compile Include="Assets\Scripts\Ships\Hardpoint.cs" />
     <Compile Include="Assets\Scripts\Ships\PlayerShip.cs" />
     <Compile Include="Assets\Scripts\Ships\Ship.cs" />
+    <Compile Include="Assets\Scripts\Ships\ShipSection.cs" />
     <Compile Include="Assets\Scripts\Ships\Subsystem.cs" />
     <Compile Include="Assets\Scripts\Ships\Turret.cs" />
     <Compile Include="Assets\Scripts\Ships\Weapon.cs" />

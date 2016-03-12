@@ -20,10 +20,4 @@ public class ShipController : MonoBehaviour {
         GameObject ShipObject = Instantiate(Resources.Load("Prefabs/" + name), position, Quaternion.AngleAxis(rotation, Vector3.forward)) as GameObject;
         return ShipObject.GetComponent<Ship>();   
     }
-
-    public Enemy SpawnEnemy(string name, Vector2 position, float rotation)
-    {
-        GameObject EnemyObject = Instantiate(Resources.Load("Prefabs/" + name), position, Quaternion.AngleAxis(rotation, Vector3.forward)) as GameObject;
-        return EnemyObject.GetComponent<Enemy>();
-    }
 }

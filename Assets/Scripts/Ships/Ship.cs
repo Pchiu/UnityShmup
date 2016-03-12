@@ -2,9 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using Enums;
+using System.Linq;
 
-public class Ship : Movable {
+public class Ship : AbstractMovable {
 
+    public List<ShipSection> ShipSections;
+
+    public Ship(string ID) : base(ID) { }
+
+    public void ToggleWeapons(bool toggle)
+    {
+        foreach (ShipSection section in ShipSections)
+        {
+            section.ToggleWeapons(toggle);
+        }
+    }
+
+    public void CheckCriticalSections()
+    {
+        if (ShipSections.Where(s => s.Type == ShipSectionTypes.Critical).Count() == 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
+    /*
     public int Hull = 1;
     public List<Subsystem> Subsystems;
     public List<Hardpoint> Hardpoints;
@@ -76,4 +99,5 @@ public class Ship : Movable {
             Destroy(this.gameObject);
         }
     }
+    */
 }
