@@ -91,10 +91,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14bc275dfbdbdc4ab0ccfa5b49717dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: BulletAnimated
-  Damage: 1
-  HitAnimation: {fileID: 153232, guid: 2f174d82aa23be249ba578ad9305f6bc, type: 2}
-  Color: {r: 0, g: 0, b: 0, a: 0}
+  turnRate: 0
+  FaceTarget: 0
+  Target: {fileID: 0}
+  MovementVector: {x: 0, y: 0, z: 0}
+  damage: 2
+  hitAnimation: {fileID: 153232, guid: 2f174d82aa23be249ba578ad9305f6bc, type: 2}
+  color: {r: 0, g: 0, b: 0, a: 0}
   MaxDuration: 3
 --- !u!212 &21248742
 SpriteRenderer:
@@ -157,6 +160,14 @@ Prefab:
       propertyPath: MaxDuration
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hitAnimation
+      value: 
+      objectReference: {fileID: 153232, guid: 2f174d82aa23be249ba578ad9305f6bc, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 102450}

@@ -26,13 +26,15 @@ public class GameController : MonoBehaviour {
         GameDataManager.Instance.MovementPatternManager.CreateTestMovementPattern();
         GameDataManager.Instance.MovementPatternManager.CreateTestShotPattern();
 
+        PlayerController.CreateTestShip();
+
         Ship enemy = ShipController.SpawnShip("Interceptor1", new Vector2(5, 0), 90);
         enemy.MovementQueue = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestPattern"].MovementQueue;
         enemy.SetTarget(PlayerController.PlayerShip.transform);
         enemy.ToggleRotateTowardsTarget(true);
         enemy.Move();
         /*
-        PlayerController.CreateTestShip();
+        
 
         Ship enemy = ShipController.SpawnShip("Interceptor1", new Vector2(5, 0), 90);
         enemy.MovementPattern = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestPattern"];

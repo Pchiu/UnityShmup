@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-interface IIdentifiable {
+public interface IIdentifiable {
 
 	string ID { get; }
 }

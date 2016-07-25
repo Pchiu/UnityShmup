@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-interface IDrawable : IIdentifiable {
+public interface IDrawable : IIdentifiable {
 
-	// Use this for initialization
-
+    float TurnRate { get; set; }
 }

@@ -85,77 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &49578874 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 163506, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-  m_PrefabInternal: {fileID: 1425141534}
---- !u!114 &49578875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 49578874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd0e6bda35650543b1294583a9be47a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Hull: 10
-  Subsystems: []
-  Effects: []
-  Type: 1
-  Ship: {fileID: 672725135}
---- !u!4 &49578879 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-  m_PrefabInternal: {fileID: 1425141534}
---- !u!1 &672725134
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 672725136}
-  - 114: {fileID: 672725135}
-  m_Layer: 0
-  m_Name: TestPlayerShip
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &672725135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 672725134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5fdbfe03cbb73f42825ce081070cdfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnRate: 180
-  faceTarget: 0
-  target: {fileID: 0}
-  movementVector: {x: 0, y: 0, z: 0}
-  ShipSections:
-  - {fileID: 49578875}
-  Speed: 5
---- !u!4 &672725136
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 672725134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 49578879}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
 --- !u!1 &767156371
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,49 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e71690ca2af54242a416533dbfa4bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1425141534
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 672725136}
-    m_Modifications:
-    - target: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 401938, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11428910, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-  m_ParentPrefab: {fileID: 100100000, guid: 5be69a0c4a364204fbaf6e401468d11a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1651827129
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebb33295763e5a40b9d2d9346520260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerShip: {fileID: 672725135}
+  PlayerShip: {fileID: 0}
   InputEnabled: 0
   AllRange: 0
 --- !u!114 &1915953182

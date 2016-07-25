@@ -1,33 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &116758
+--- !u!1 &141052
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 477922}
-  - 114: {fileID: 11445466}
-  m_Layer: 0
-  m_Name: TestPlayerShip
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &129180
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 406766}
-  - 212: {fileID: 21276502}
-  - 50: {fileID: 5012222}
-  - 60: {fileID: 6083856}
-  - 114: {fileID: 11423540}
+  - 4: {fileID: 432348}
+  - 212: {fileID: 21277208}
+  - 50: {fileID: 5067148}
+  - 60: {fileID: 6083052}
+  - 114: {fileID: 11477222}
   m_Layer: 0
   m_Name: FighterSection
   m_TagString: Friendly
@@ -35,38 +19,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &406766
+--- !u!4 &432348
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129180}
+  m_GameObject: {fileID: 141052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 477922}
-  m_RootOrder: 0
---- !u!4 &477922
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 116758}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 406766}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5012222
+--- !u!50 &5067148
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129180}
+  m_GameObject: {fileID: 141052}
   m_UseAutoMass: 0
   m_Mass: 0.0001
   m_LinearDrag: 0
@@ -77,12 +48,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &6083856
+--- !u!60 &6083052
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129180}
+  m_GameObject: {fileID: 141052}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -101,12 +72,12 @@ PolygonCollider2D:
       - {x: 0.2138878, y: -0.22273019}
       - {x: 0.21388781, y: -0.15505469}
       - {x: 0.084890574, y: 0.040660866}
---- !u!114 &11423540
+--- !u!114 &11477222
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129180}
+  m_GameObject: {fileID: 141052}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3dd0e6bda35650543b1294583a9be47a, type: 3}
@@ -115,34 +86,15 @@ MonoBehaviour:
   turnRate: 0
   Hull: 10
   Subsystems: []
-  Hardpoints: []
   Effects: []
   Type: 1
   Ship: {fileID: 0}
---- !u!114 &11445466
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 116758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5fdbfe03cbb73f42825ce081070cdfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnRate: 180
-  FaceTarget: 0
-  Target: {fileID: 0}
-  MovementVector: {x: 0, y: 0, z: 0}
-  ShipSections:
-  - {fileID: 11423540}
-  Speed: 5
---- !u!212 &21276502
+--- !u!212 &21277208
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129180}
+  m_GameObject: {fileID: 141052}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -173,13 +125,8 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: ShipSections.Array.data[0]
-      value: 
-      objectReference: {fileID: 11477222, guid: 5312ad665aec68b4e8eee7c8c0c9957f,
-        type: 2}
+    m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 116758}
+  m_RootGameObject: {fileID: 141052}
   m_IsPrefabParent: 1

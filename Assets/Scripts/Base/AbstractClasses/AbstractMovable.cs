@@ -5,58 +5,33 @@ using System.Collections.Generic;
 public abstract class AbstractMovable : AbstractDrawable, IMovable
 {
     
-    public Queue<MovementAction> MovementQueue
-    {
-        get
-        {
-            return movementQueue;
-        }
-        set
-        {
-            movementQueue = value;
-        }
-    }
-
-    public float TurnRate
-    {
-        get
-        {
-            return turnRate;
-        }
-        set
-        {
-            turnRate = value;
-        }
-    }
-
-    public float turnRate;
-    public Queue<MovementAction> movementQueue;
-    protected MovementAction currentAction;
-    protected List<Vector2> currentWaypoints;
-    protected Vector3 currentDirection;
-    protected float elapsedMovementTime;
-    protected float elapsedMovementTimeFraction;
-    public bool faceTarget;
-    public Transform target;
-    public Vector3 movementVector;
+    public Queue<MovementAction> MovementQueue { get; set; }
+    protected MovementAction CurrentAction;
+    protected List<Vector2> CurrentWaypoints;
+    protected Vector3 CurrentDirection;
+    protected float ElapsedMovementTime;
+    protected float ElapsedMovementTimeFraction;
+    public bool FaceTarget;
+    public Transform Target;
+    public Vector3 MovementVector;
 
     public AbstractMovable(string ID) : base(ID) { }
 
     public virtual void Awake()
     {
-        elapsedMovementTime = 0f;
-        currentWaypoints = new List<Vector2>();
-        currentAction = null;
-        faceTarget = false;
-        target = null;
-        movementVector = new Vector3(0, 0, 0);
+        ElapsedMovementTime = 0f;
+        CurrentWaypoints = new List<Vector2>();
+        CurrentAction = null;
+        FaceTarget = false;
+        Target = null;
+        MovementVector = new Vector3(0, 0, 0);
     }
 
     public virtual void Update()
     {
-        if (faceTarget && target != null)
+        if (FaceTarget && Target != null)
         {
-            Vector3 targetDirection = target.position - transform.position;
+            Vector3 targetDirection = Target.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, TurnRate * Time.deltaTime); ;
         }
@@ -78,20 +53,20 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
         {
             SetCurrentMovementAction();
         }
-        while (currentAction != null)
+        while (CurrentAction != null)
         {
-            if (elapsedMovementTime > currentAction.Time)
+            if (ElapsedMovementTime > CurrentAction.Time)
             {
-                if (currentAction.GetType().ToString() == "WaypointMovementAction")
+                if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
                 {
-                    Vector2 newPosition = Utilities.CalculateCurvePosition(currentWaypoints, 1);
-                    movementVector = new Vector3(newPosition.x, newPosition.y) - transform.position;
+                    Vector2 newPosition = Utilities.CalculateCurvePosition(CurrentWaypoints, 1);
+                    MovementVector = new Vector3(newPosition.x, newPosition.y) - transform.position;
                     transform.position = newPosition;
                 }
                 if (MovementQueue.Count == 0)
                 {
-                    currentAction = null;
-                    movementVector = Vector3.zero;
+                    CurrentAction = null;
+                    MovementVector = Vector3.zero;
                     continue;
                 }
                 else
@@ -99,26 +74,26 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
                     SetCurrentMovementAction();
                 }
             }
-            if (currentAction.GetType().ToString() == "WaypointMovementAction")
+            if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
             {
-                var WaypointAction = (WaypointMovementAction)currentAction;
-                elapsedMovementTimeFraction = elapsedMovementTime / WaypointAction.Time;
-                Vector2 newPosition = Utilities.CalculateCurvePosition(currentWaypoints, elapsedMovementTimeFraction);
-                movementVector = new Vector3(newPosition.x, newPosition.y) - transform.position;
+                var WaypointAction = (WaypointMovementAction)CurrentAction;
+                ElapsedMovementTimeFraction = ElapsedMovementTime / WaypointAction.Time;
+                Vector2 newPosition = Utilities.CalculateCurvePosition(CurrentWaypoints, ElapsedMovementTimeFraction);
+                MovementVector = new Vector3(newPosition.x, newPosition.y) - transform.position;
                 transform.position = newPosition;
             }
             else
             {
-                var VectorAction = (VectorMovementAction)currentAction;
+                var VectorAction = (VectorMovementAction)CurrentAction;
                 if (VectorAction.ReferenceFrame == "Local")
                 {
-                    currentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
+                    CurrentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
                 }
-                transform.position += currentDirection * Time.deltaTime;
-                movementVector = currentDirection;
+                transform.position += CurrentDirection * Time.deltaTime;
+                MovementVector = CurrentDirection;
             }
 
-            elapsedMovementTime += Time.deltaTime;
+            ElapsedMovementTime += Time.deltaTime;
             yield return null;
         }
     }
@@ -141,53 +116,53 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
 
     public void SetCurrentMovementAction()
     {
-        currentAction = MovementQueue.Dequeue();
-        if (currentAction.GetType().ToString() == "WaypointMovementAction")
+        CurrentAction = MovementQueue.Dequeue();
+        if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
         {
-            var WaypointAction = (WaypointMovementAction)currentAction;
-            currentWaypoints.Clear();
-            currentWaypoints.Add(transform.position);
+            var WaypointAction = (WaypointMovementAction)CurrentAction;
+            CurrentWaypoints.Clear();
+            CurrentWaypoints.Add(transform.position);
             if (WaypointAction.ReferenceFrame == "Local")
             {
                 Vector3 direction = Vector2.zero;
                 foreach (Vector2 controlPoint in WaypointAction.ControlPoints)
                 {
                     direction = transform.TransformDirection(controlPoint);
-                    currentWaypoints.Add(transform.position + direction);
+                    CurrentWaypoints.Add(transform.position + direction);
                 }
 
                 direction = transform.TransformDirection(WaypointAction.Origin);
-                currentWaypoints.Add(transform.position + direction);
+                CurrentWaypoints.Add(transform.position + direction);
             }
             else
             {
-                currentWaypoints.AddRange(WaypointAction.ControlPoints);
-                currentWaypoints.Add(WaypointAction.Origin);
+                CurrentWaypoints.AddRange(WaypointAction.ControlPoints);
+                CurrentWaypoints.Add(WaypointAction.Origin);
             }
 
         }
         else
         {
-            var VectorAction = (VectorMovementAction)currentAction;
+            var VectorAction = (VectorMovementAction)CurrentAction;
             if (VectorAction.ReferenceFrame == "Local")
             {
-                currentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
+                CurrentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
             }
             else
             {
-                currentDirection = new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed;
+                CurrentDirection = new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed;
             }
         }
-        elapsedMovementTime = 0;
+        ElapsedMovementTime = 0;
     }
 
     public void SetTarget(Transform target)
     {
-        this.target = target;
+        this.Target = target;
     }
 
     public void ToggleRotateTowardsTarget(bool value)
     {
-        faceTarget = value;
+        FaceTarget = value;
     }
 }

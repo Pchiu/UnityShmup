@@ -1,7 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShortBeam : Shot {
+public class ShortBeam : AbstractDrawable, IShot {
+
+    public int damage;
+    public SpawnPattern firePattern;
+    public GameObject hitAnimation;
+    public Color color;
+    public float MaxDuration;
+
+    public int Damage
+    {
+        get { return damage; }
+        set { damage = value; }
+    }
+
+    public SpawnPattern FirePattern
+    {
+        get { return firePattern; }
+        set { firePattern = value; }
+    }
+
+    public GameObject HitAnimation
+    {
+        get { return hitAnimation; }
+        set { hitAnimation = value; }
+    }
+
+    public Color Color
+    {
+        get { return color; }
+        set { color = value; }
+    }
+    public ShortBeam(string ID) : base(ID) { }
 
     public float BeamLength;
     public GameObject BeamStart;
@@ -28,7 +59,7 @@ public class ShortBeam : Shot {
                 if (this.gameObject.tag == "FriendlyShot" && ship.tag == "Hostile" ||
                     this.gameObject.tag == "HostileShot" && ship.tag == "Friendly")
                 {
-                    ship.TakeDamage(Damage);
+                    //ship.TakeDamage(Damage);
                 }
             }
         }

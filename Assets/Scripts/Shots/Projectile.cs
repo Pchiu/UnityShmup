@@ -2,9 +2,40 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Projectile : Shot {
+public class Projectile : AbstractMovableCollidable, IShot {
 
+    public int damage;
+    public SpawnPattern firePattern;
+    public GameObject hitAnimation;
+    public Color color;
     public float MaxDuration;
+    public MovementPattern MovementPattern;
+
+    public int Damage
+    {
+        get { return damage; }
+        set { damage = value; }
+    }
+
+    public SpawnPattern FirePattern
+    {
+        get { return firePattern; }
+        set { firePattern = value; }
+    }
+
+    public GameObject HitAnimation
+    {
+        get { return hitAnimation; }
+        set { hitAnimation = value; }
+    }
+
+    public Color Color
+    {
+        get { return color; }
+        set { color = value; }
+    }
+    public Projectile(string ID) : base(ID) { }
+
     // Use this for initialization
     void Awake()
     {
@@ -13,23 +44,18 @@ public class Projectile : Shot {
 
     void Start () {
         Destroy(gameObject, MaxDuration);
-        StartCoroutine("Move");
+        Move();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-    
+	    
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Ship ship = collider.gameObject.GetComponent<Ship>();
-        if (ship != null)
+        ShipSection section = collider.gameObject.GetComponent<ShipSection>();
+        if (section != null)
         {
-            if (this.tag == "FriendlyShot" && ship.tag == "Hostile" ||
-                this.tag == "HostileShot" && ship.tag == "Friendly")
+            if (this.tag == "FriendlyShot" && section.tag == "Hostile" ||
+                this.tag == "HostileShot" && section.tag == "Friendly")
             {
-                ship.TakeDamage(Damage);
+                section.TakeDamage(Damage);
                 Instantiate(HitAnimation, transform.position, transform.rotation);
                 Destroy(gameObject);
             }

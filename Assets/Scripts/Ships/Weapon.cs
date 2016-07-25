@@ -8,7 +8,7 @@ public class Weapon : Subsystem {
 
     public string WeaponType;
     public List<Transform> ShotOrigins;
-    public Shot Shot;
+    public IShot Shot;
     public FirePattern FirePattern;
     public FireModes FireMode;
     public bool isFiring;
@@ -49,7 +49,7 @@ public class Weapon : Subsystem {
                 {
                     while (Index < FirePattern.TimeOffsets.Count && TimeElapsed * 1000 >= FirePattern.TimeOffsets[Index])
                     {
-                        foreach (Shot shot in FirePattern.Entities)
+                        foreach (IShot shot in FirePattern.Entities)
                         {
                             switch (FireMode)
                             {
@@ -80,8 +80,17 @@ public class Weapon : Subsystem {
         }
 	}
 
-    public void SpawnShot(Shot shot, Vector3 position, Quaternion rotation)
+    public void SpawnShot(IShot shot, Vector3 position, Quaternion rotation)
     {
+        if (shot.GetType().ToString() == "Projectile")
+        {
+            var projectile = (Projectile)shot;
+            var newShot = Instantiate((Projectile)shot, position, rotation);
+            var newProjectile = (Projectile)newShot;
+            Projectile projectileComponent = projectile.GetComponent<Projectile>();
+            newProjectile.MovementQueue = new Queue<MovementAction>(projectileComponent.MovementPattern.MovementQueue);
+        }
+        /*
         var newShot = Instantiate(shot, position, rotation);
         if (newShot.GetType().ToString() == "Projectile")
         {
@@ -89,6 +98,7 @@ public class Weapon : Subsystem {
             Projectile projectile = shot.GetComponent<Projectile>();
             newProjectile.MovementPattern = projectile.MovementPattern;
         }
+        */
     }
 
     public override void Action()

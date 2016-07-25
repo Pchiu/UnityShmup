@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class SpawnPattern {
 
-    public List<Entity> Entities;
+    public List<IDrawable> Entities;
     public List<int> TimeOffsets;
 	// Use this for initialization
 	void Start () {
-        Entities = new List<Entity>();
+        Entities = new List<IDrawable>();
         TimeOffsets = new List<int>();
 	}
 }
