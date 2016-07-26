@@ -4,5 +4,5 @@ using System.Collections.Generic;
 
 interface IMovable : IDrawable {
 
-    Queue<MovementAction> MovementQueue { get; set; }
+    List<MovementAction> MovementPattern { get; set; }
 }

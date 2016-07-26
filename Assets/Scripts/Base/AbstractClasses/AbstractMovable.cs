@@ -5,8 +5,10 @@ using System.Collections.Generic;
 public abstract class AbstractMovable : AbstractDrawable, IMovable
 {
     
-    public Queue<MovementAction> MovementQueue { get; set; }
+    public List<MovementAction> MovementPattern { get; set; }
+    public bool RepeatMovement;
     protected MovementAction CurrentAction;
+    protected int CurrentActionIndex;
     protected List<Vector2> CurrentWaypoints;
     protected Vector3 CurrentDirection;
     protected float ElapsedMovementTime;
@@ -22,8 +24,10 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
         ElapsedMovementTime = 0f;
         CurrentWaypoints = new List<Vector2>();
         CurrentAction = null;
+        CurrentActionIndex = 0;
         FaceTarget = false;
         Target = null;
+        RepeatMovement = false;
         MovementVector = new Vector3(0, 0, 0);
     }
 
@@ -49,7 +53,7 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
 
     public IEnumerator MoveCoroutine()
     {
-        if (MovementQueue != null)
+        if (MovementPattern != null)
         {
             SetCurrentMovementAction();
         }
@@ -63,11 +67,19 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
                     MovementVector = new Vector3(newPosition.x, newPosition.y) - transform.position;
                     transform.position = newPosition;
                 }
-                if (MovementQueue.Count == 0)
+                if (CurrentActionIndex >= MovementPattern.Count)
                 {
-                    CurrentAction = null;
-                    MovementVector = Vector3.zero;
-                    continue;
+                    if (RepeatMovement)
+                    {
+                        CurrentActionIndex = 0;
+                        continue;
+                    }
+                    else
+                    {
+                        CurrentAction = null;
+                        MovementVector = Vector3.zero;
+                        continue;
+                    }
                 }
                 else
                 {
@@ -116,7 +128,7 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
 
     public void SetCurrentMovementAction()
     {
-        CurrentAction = MovementQueue.Dequeue();
+        CurrentAction = MovementPattern[CurrentActionIndex];
         if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
         {
             var WaypointAction = (WaypointMovementAction)CurrentAction;
@@ -139,7 +151,6 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
                 CurrentWaypoints.AddRange(WaypointAction.ControlPoints);
                 CurrentWaypoints.Add(WaypointAction.Origin);
             }
-
         }
         else
         {
@@ -154,6 +165,7 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
             }
         }
         ElapsedMovementTime = 0;
+        CurrentActionIndex += 1;
     }
 
     public void SetTarget(Transform target)

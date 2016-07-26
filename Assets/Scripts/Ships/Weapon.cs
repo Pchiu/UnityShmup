@@ -88,7 +88,7 @@ public class Weapon : Subsystem {
             var newShot = Instantiate((Projectile)shot, position, rotation);
             var newProjectile = (Projectile)newShot;
             Projectile projectileComponent = projectile.GetComponent<Projectile>();
-            newProjectile.MovementQueue = new Queue<MovementAction>(projectileComponent.MovementPattern.MovementQueue);
+            newProjectile.MovementPattern = projectileComponent.MovementPattern;
         }
         /*
         var newShot = Instantiate(shot, position, rotation);

@@ -9,7 +9,6 @@ public class Projectile : AbstractMovableCollidable, IShot {
     public GameObject hitAnimation;
     public Color color;
     public float MaxDuration;
-    public MovementPattern MovementPattern;
 
     public int Damage
     {
