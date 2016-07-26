@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnRate: 180
+  RepeatMovement: 0
   FaceTarget: 0
   Target: {fileID: 0}
   MovementVector: {x: 0, y: 0, z: 0}
@@ -179,6 +180,10 @@ Prefab:
       value: 
       objectReference: {fileID: 11477222, guid: 5312ad665aec68b4e8eee7c8c0c9957f,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: turnRate
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 116758}

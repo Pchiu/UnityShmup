@@ -8,7 +8,6 @@ public class ShipSection : AbstractCollidable {
     public int Hull;
     public List<Subsystem> Subsystems;
     public List<Hardpoint> Hardpoints;
-    public List<Effect> Effects;
     public ShipSectionTypes Type;
     public Ship Ship;
 
