@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class ShotDataManager : MonoBehaviour {
 
-    public Dictionary<string, Shot> Shots;
+    public Dictionary<string, IShot> Shots;
 
     public bool AddShot()
     {

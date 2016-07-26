@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public abstract class AbstractMovable : AbstractDrawable, IMovable
 {
-    
-    public List<MovementAction> MovementPattern { get; set; }
-    public bool RepeatMovement;
+
+    public MovementPattern MovementPattern { get; set; }
+    public int RepeatCount;
     protected MovementAction CurrentAction;
     protected int CurrentActionIndex;
     protected List<Vector2> CurrentWaypoints;
@@ -27,7 +27,7 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
         CurrentActionIndex = 0;
         FaceTarget = false;
         Target = null;
-        RepeatMovement = false;
+        RepeatCount = 0;
         MovementVector = new Vector3(0, 0, 0);
     }
 
@@ -67,11 +67,12 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
                     MovementVector = new Vector3(newPosition.x, newPosition.y) - transform.position;
                     transform.position = newPosition;
                 }
-                if (CurrentActionIndex >= MovementPattern.Count)
+                if (CurrentActionIndex >= MovementPattern.MovementActions.Count)
                 {
-                    if (RepeatMovement)
+                    if (RepeatCount < MovementPattern.Repeat)
                     {
                         CurrentActionIndex = 0;
+                        RepeatCount += 1;
                         continue;
                     }
                     else
@@ -128,7 +129,7 @@ public abstract class AbstractMovable : AbstractDrawable, IMovable
 
     public void SetCurrentMovementAction()
     {
-        CurrentAction = MovementPattern[CurrentActionIndex];
+        CurrentAction = MovementPattern.MovementActions[CurrentActionIndex];
         if (CurrentAction.GetType().ToString() == "WaypointMovementAction")
         {
             var WaypointAction = (WaypointMovementAction)CurrentAction;

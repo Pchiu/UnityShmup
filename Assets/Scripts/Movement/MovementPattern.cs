@@ -4,14 +4,6 @@ using System.Collections.Generic;
 
 public class MovementPattern {
 
-    public Queue<MovementAction> MovementQueue;
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public List<MovementAction> MovementActions;
+    public int Repeat;
 }

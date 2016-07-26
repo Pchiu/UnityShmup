@@ -48,7 +48,7 @@ public class Movable : Entity {
     {
         if (MovementPattern != null)
         {
-            MovementQueue = new Queue<MovementAction>(MovementPattern.MovementQueue);
+            //MovementQueue = new Queue<MovementAction>(MovementPattern.MovementQueue);
             SetCurrentMovementAction();
         }
         while (CurrentAction != null)
