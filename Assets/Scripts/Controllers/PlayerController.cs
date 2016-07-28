@@ -113,7 +113,9 @@ public class PlayerController : MonoBehaviour {
     private void MoveShip()
     {
         Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
-        PlayerShip.transform.position += move * PlayerShip.Speed * Time.deltaTime;
+        Vector3 newPosition = PlayerShip.transform.position + (move * PlayerShip.Speed * Time.deltaTime);
+        PlayerShip.MovementVector = newPosition - PlayerShip.transform.position;
+        PlayerShip.transform.position = newPosition;
         var clampedX = Mathf.Clamp(PlayerShip.transform.position.x, xMin, xMax);
         var clampedY = Mathf.Clamp(PlayerShip.transform.position.y, yMin, yMax);
         PlayerShip.transform.position = new Vector3(clampedX, clampedY, PlayerShip.transform.position.z);
