@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
         GameObject shipObject = Instantiate(Resources.Load("Prefabs/TestPlayerShip")) as GameObject;
         PlayerShip ship = shipObject.GetComponent<PlayerShip>();
         ShipSection mainSection = ship.ShipSections[0].GetComponent<ShipSection>();
-        
+        ship.SubsystemGroups = new Dictionary<string, SubsystemGroup>();
 
         mainSection.Subsystems = new List<Subsystem>();
         mainSection.Effects = new List<Effect>();
@@ -50,6 +50,12 @@ public class PlayerController : MonoBehaviour {
         Weapon gun1 = gun1Object.GetComponent<Weapon>();
         gun1.transform.parent = mainSection.transform;
         gun1.transform.position = mainSection.Hardpoints[0].Position;
+
+        var subsystemGroup = new SubsystemGroup();
+        subsystemGroup.Name = "Weapons";
+        subsystemGroup.Subsystems.Add(gun1);
+        subsystemGroup.Enabled = true;
+        ship.SubsystemGroups.Add(subsystemGroup.Name, subsystemGroup);
 
         GameObject engineFlareObject = Instantiate(Resources.Load("Prefabs/EngineFlare1"), new Vector3(0, -.4f, 0), mainSection.transform.rotation) as GameObject;
         Effect engineFlare = engineFlareObject.GetComponent<Effect>();

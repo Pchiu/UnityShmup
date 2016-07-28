@@ -7,14 +7,16 @@ using System.Linq;
 public class Ship : AbstractMovable {
 
     public List<ShipSection> ShipSections;
+    public Dictionary<string, SubsystemGroup> SubsystemGroups;
 
     public Ship(string ID) : base(ID) { }
 
     public void ToggleWeapons(bool toggle)
     {
-        foreach (ShipSection section in ShipSections)
+        var group = SubsystemGroups["Weapons"];
+        foreach (Subsystem subsystem in group.Subsystems)
         {
-            section.ToggleWeapons(toggle);
+            subsystem.ToggleAction(toggle);
         }
     }
 
