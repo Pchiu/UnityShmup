@@ -91,7 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14bc275dfbdbdc4ab0ccfa5b49717dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effects: []
   turnRate: 0
+  RepeatCount: 0
   FaceTarget: 0
   Target: {fileID: 0}
   MovementVector: {x: 0, y: 0, z: 0}
