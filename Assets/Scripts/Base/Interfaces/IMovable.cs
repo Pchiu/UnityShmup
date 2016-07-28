@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.Movement;
 
-interface IMovable : IDrawable {
+namespace Assets.Scripts.Base.Interfaces
+{
+    interface IMovable : IDrawable {
 
-    MovementPattern MovementPattern { get; set; }
+        MovementPattern MovementPattern { get; set; }
+    }
 }

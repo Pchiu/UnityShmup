@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class AbstractIdentifiable : MonoBehaviour {
+namespace Assets.Scripts.Base.AbstractClasses
+{
+    public class AbstractIdentifiable : MonoBehaviour {
 
-    public string ID
-    {
-        get { return ID; }
-    }
+        public string ID
+        {
+            get { return ID; }
+        }
 
-	public AbstractIdentifiable(string ID)
-    {
+        public AbstractIdentifiable(string ID)
+        {
 
+        }
     }
 }

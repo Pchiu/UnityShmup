@@ -1,10 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using Assets.Scripts.Shots;
+using UnityEngine;
 
-public interface IShot : IDrawable {
+namespace Assets.Scripts.Base.Interfaces
+{
+    public interface IShot : IDrawable {
 
-    int Damage { get; set; }
-    SpawnPattern FirePattern { get; set; }
-    GameObject HitAnimation { get; set; }
-    Color Color { get; set; }
+        int Damage { get; set; }
+        SpawnPattern FirePattern { get; set; }
+        GameObject HitAnimation { get; set; }
+        Color Color { get; set; }
+    }
 }

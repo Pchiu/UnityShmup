@@ -1,12 +1,14 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using Assets.Scripts.Base.Interfaces;
 
-public abstract class AbstractCollidable : AbstractDrawable, ICollidable
+namespace Assets.Scripts.Base.AbstractClasses
 {
-    public AbstractCollidable(string ID) : base(ID) { }
-
-    public virtual void Collide()
+    public abstract class AbstractCollidable : AbstractDrawable, ICollidable
     {
+        public AbstractCollidable(string ID) : base(ID) { }
 
+        public virtual void Collide()
+        {
+
+        }
     }
 }

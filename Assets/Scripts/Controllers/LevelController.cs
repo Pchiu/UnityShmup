@@ -1,167 +1,171 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Enums;
+using Assets.Scripts.DataManagement;
+using Assets.Scripts.Enums;
+using Assets.Scripts.Levels;
+using UnityEngine;
 
-public class LevelController : MonoBehaviour {
+namespace Assets.Scripts.Controllers
+{
+    public class LevelController : MonoBehaviour {
 
-    private Level ActiveLevel;
+        private Level ActiveLevel;
 
-    public int AreaIndex;
-    public float TotalElapsedTime;
-    public float AreaElapsedTime;
-    public List<Tile> ActiveTiles;
-    public List<Doodad> ActiveDoodads;
-    public int DoodadIndex;
-    public float CurrentSpeed;
-    public Tile LatestTile;
-    public float CameraHeight;
+        public int AreaIndex;
+        public float TotalElapsedTime;
+        public float AreaElapsedTime;
+        public List<Tile> ActiveTiles;
+        public List<Doodad> ActiveDoodads;
+        public int DoodadIndex;
+        public float CurrentSpeed;
+        public Tile LatestTile;
+        public float CameraHeight;
 
-    // Use this for initialization
-    void Start () {
+        // Use this for initialization
+        void Start () {
         
-        AreaIndex = 0;
-        DoodadIndex = 0;
-        TotalElapsedTime = 0f;
-        AreaElapsedTime = 0f;
-        CurrentSpeed = 0f;
-        ActiveTiles = new List<Tile>();
-        ActiveDoodads = new List<Doodad>();
-        LatestTile = null;
-        CameraHeight = Camera.main.orthographicSize * 2f;
-    }
+            AreaIndex = 0;
+            DoodadIndex = 0;
+            TotalElapsedTime = 0f;
+            AreaElapsedTime = 0f;
+            CurrentSpeed = 0f;
+            ActiveTiles = new List<Tile>();
+            ActiveDoodads = new List<Doodad>();
+            LatestTile = null;
+            CameraHeight = Camera.main.orthographicSize * 2f;
+        }
 	
-	// Update is called once per frame
-	void Update () {
-        if (ActiveLevel != null)
-        {
-            TotalElapsedTime += Time.deltaTime;
-            AreaElapsedTime += Time.deltaTime;
-
-            if (AreaIndex >= ActiveLevel.Areas.Count && ActiveTiles.Count == 0)
+        // Update is called once per frame
+        void Update () {
+            if (ActiveLevel != null)
             {
-                ActiveLevel = null;
+                TotalElapsedTime += Time.deltaTime;
+                AreaElapsedTime += Time.deltaTime;
+
+                if (AreaIndex >= ActiveLevel.Areas.Count && ActiveTiles.Count == 0)
+                {
+                    ActiveLevel = null;
+                    return;
+                }
+
+                foreach (Tile tile in ActiveTiles.Reverse<Tile>())
+                {
+                    float distanceTraveled = Time.deltaTime * CurrentSpeed;
+                    tile.transform.position -= new Vector3(0, distanceTraveled);
+                    tile.DistanceTraveled += distanceTraveled;
+                    if (tile.transform.position.y < -((CameraHeight / 2) + tile.Height / 2))
+                    {
+                        ActiveTiles.Remove(tile);
+                        Destroy(tile.gameObject);
+                    }
+                }
+
+                foreach (Doodad doodad in ActiveDoodads.Reverse<Doodad>())
+                {
+                    doodad.transform.position -= new Vector3(0, Time.deltaTime * CurrentSpeed);
+                    if (doodad.transform.position.y < -((CameraHeight / 2) + doodad.Height / 2))
+                    {
+                        ActiveDoodads.Remove(doodad);
+                        Destroy(doodad.gameObject);
+                    }
+                }
+
+                if (AreaIndex < ActiveLevel.Areas.Count)
+                {
+                    while (DoodadIndex < ActiveLevel.Areas[AreaIndex].Doodads.Count && AreaElapsedTime >= ActiveLevel.Areas[AreaIndex].Doodads[DoodadIndex].Time)
+                    {
+                        GameObject DoodadObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].Doodads[DoodadIndex].id), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
+                        Doodad doodad = DoodadObject.GetComponent<Doodad>();
+                        Sprite sprite = doodad.GetComponent<SpriteRenderer>().sprite;
+                        doodad.transform.position = new Vector3(0, CameraHeight / 2 + doodad.Height / 2, 5);
+                        doodad.Height = sprite.bounds.size.y;
+                        ActiveDoodads.Add(doodad);
+                        DoodadIndex++;
+                    }
+
+                    if (ActiveLevel.Areas[AreaIndex].AreaType == AreaTypes.Area && LatestTile.DistanceTraveled >= LatestTile.Height)
+                    {
+                        CurrentSpeed = 0;
+                    }
+
+                    if (AreaElapsedTime >= ActiveLevel.Areas[AreaIndex].Time)
+                    {
+                        AreaIndex++;
+                        if (AreaIndex < ActiveLevel.Areas.Count)
+                        {
+                            AreaElapsedTime = 0f;
+                            SetNextTile(true);
+                            CurrentSpeed = ActiveLevel.Areas[AreaIndex].Speed;
+                        }
+                    }
+                    else
+                    {
+                        if (LatestTile.DistanceTraveled >= LatestTile.Height && ActiveLevel.Areas[AreaIndex].AreaType != AreaTypes.Area)
+                        {
+                            SetNextTile(false);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SetActiveLevel(string levelName)
+        {
+            if (GameDataManager.Instance == null)
+            {
+                Debug.Log("GameDataManager has not been initialized yet.  Unable to load a level.");
+                return;
+            }
+            ActiveLevel = GameDataManager.Instance.LevelManager.Levels[levelName];    
+            if (ActiveLevel == null)
+            {
+                Debug.Log("Failed to load level: " + levelName);
                 return;
             }
 
-            foreach (Tile tile in ActiveTiles.Reverse<Tile>())
+            TotalElapsedTime = 0;
+            AreaIndex = 0;
+            CurrentSpeed = ActiveLevel.Areas[0].Speed;
+
+            GameObject tileObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].AreaBackgroundImage), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
+            Tile tile = tileObject.GetComponent<Tile>();
+            Sprite sprite = tileObject.GetComponent<SpriteRenderer>().sprite;
+
+            tile.Height = sprite.bounds.size.y;
+            tile.DistanceTraveled = tile.Height;
+            tile.transform.position = new Vector3(0, -(CameraHeight / 2) + tile.Height / 2, 10);
+            ActiveTiles.Add(tile);
+            LatestTile = tile;
+        }
+
+        public void SetNextTile(bool changedArea)
+        {
+            GameObject tileObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].AreaBackgroundImage), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
+            Tile tile = tileObject.GetComponent<Tile>();
+            Sprite sprite = tileObject.GetComponent<SpriteRenderer>().sprite;
+            tile.DistanceTraveled = 0;
+            tile.Height = sprite.bounds.size.y;
+            ActiveTiles.Add(tile);
+            if (LatestTile)
             {
-                float distanceTraveled = Time.deltaTime * CurrentSpeed;
-                tile.transform.position -= new Vector3(0, distanceTraveled);
-                tile.DistanceTraveled += distanceTraveled;
-                if (tile.transform.position.y < -((CameraHeight / 2) + tile.Height / 2))
+                if (changedArea)
                 {
-                    ActiveTiles.Remove(tile);
-                    Destroy(tile.gameObject);
-                }
-            }
-
-            foreach (Doodad doodad in ActiveDoodads.Reverse<Doodad>())
-            {
-                doodad.transform.position -= new Vector3(0, Time.deltaTime * CurrentSpeed);
-                if (doodad.transform.position.y < -((CameraHeight / 2) + doodad.Height / 2))
-                {
-                    ActiveDoodads.Remove(doodad);
-                    Destroy(doodad.gameObject);
-                }
-            }
-
-            if (AreaIndex < ActiveLevel.Areas.Count)
-            {
-                while (DoodadIndex < ActiveLevel.Areas[AreaIndex].Doodads.Count && AreaElapsedTime >= ActiveLevel.Areas[AreaIndex].Doodads[DoodadIndex].Time)
-                {
-                    GameObject DoodadObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].Doodads[DoodadIndex].id), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
-                    Doodad doodad = DoodadObject.GetComponent<Doodad>();
-                    Sprite sprite = doodad.GetComponent<SpriteRenderer>().sprite;
-                    doodad.transform.position = new Vector3(0, CameraHeight / 2 + doodad.Height / 2, 5);
-                    doodad.Height = sprite.bounds.size.y;
-                    ActiveDoodads.Add(doodad);
-                    DoodadIndex++;
-                }
-
-                if (ActiveLevel.Areas[AreaIndex].AreaType == AreaTypes.Area && LatestTile.DistanceTraveled >= LatestTile.Height)
-                {
-                    CurrentSpeed = 0;
-                }
-
-                if (AreaElapsedTime >= ActiveLevel.Areas[AreaIndex].Time)
-                {
-                    AreaIndex++;
-                    if (AreaIndex < ActiveLevel.Areas.Count)
+                    float diff = 0;
+                    if (LatestTile.DistanceTraveled > LatestTile.Height)
                     {
-                        AreaElapsedTime = 0f;
-                        SetNextTile(true);
-                        CurrentSpeed = ActiveLevel.Areas[AreaIndex].Speed;
+                        diff = LatestTile.DistanceTraveled - LatestTile.Height;
                     }
+                    tile.transform.position = new Vector3(0, ((CameraHeight / 2) + (tile.Height / 2)) - diff, 10);
+                    tile.DistanceTraveled += diff;
                 }
                 else
                 {
-                    if (LatestTile.DistanceTraveled >= LatestTile.Height && ActiveLevel.Areas[AreaIndex].AreaType != AreaTypes.Area)
-                    {
-                        SetNextTile(false);
-                    }
+                    Vector3 position = LatestTile.transform.position + new Vector3(0, (LatestTile.Height / 2) + (tile.Height / 2), 0);
+                    tile.transform.position = position;
+                    tile.DistanceTraveled = LatestTile.DistanceTraveled - LatestTile.Height;
                 }
             }
+            LatestTile = tile;
         }
-    }
-
-    public void SetActiveLevel(string levelName)
-    {
-        if (GameDataManager.Instance == null)
-        {
-            Debug.Log("GameDataManager has not been initialized yet.  Unable to load a level.");
-            return;
-        }
-        ActiveLevel = GameDataManager.Instance.LevelManager.Levels[levelName];    
-        if (ActiveLevel == null)
-        {
-            Debug.Log("Failed to load level: " + levelName);
-            return;
-        }
-
-        TotalElapsedTime = 0;
-        AreaIndex = 0;
-        CurrentSpeed = ActiveLevel.Areas[0].Speed;
-
-        GameObject tileObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].AreaBackgroundImage), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
-        Tile tile = tileObject.GetComponent<Tile>();
-        Sprite sprite = tileObject.GetComponent<SpriteRenderer>().sprite;
-
-        tile.Height = sprite.bounds.size.y;
-        tile.DistanceTraveled = tile.Height;
-        tile.transform.position = new Vector3(0, -(CameraHeight / 2) + tile.Height / 2, 10);
-        ActiveTiles.Add(tile);
-        LatestTile = tile;
-    }
-
-    public void SetNextTile(bool changedArea)
-    {
-        GameObject tileObject = Instantiate(Resources.Load("Prefabs/" + ActiveLevel.Areas[AreaIndex].AreaBackgroundImage), new Vector3(0, 10, 10), this.transform.rotation) as GameObject;
-        Tile tile = tileObject.GetComponent<Tile>();
-        Sprite sprite = tileObject.GetComponent<SpriteRenderer>().sprite;
-        tile.DistanceTraveled = 0;
-        tile.Height = sprite.bounds.size.y;
-        ActiveTiles.Add(tile);
-        if (LatestTile)
-        {
-            if (changedArea)
-            {
-                float diff = 0;
-                if (LatestTile.DistanceTraveled > LatestTile.Height)
-                {
-                    diff = LatestTile.DistanceTraveled - LatestTile.Height;
-                }
-                tile.transform.position = new Vector3(0, ((CameraHeight / 2) + (tile.Height / 2)) - diff, 10);
-                tile.DistanceTraveled += diff;
-            }
-            else
-            {
-                Vector3 position = LatestTile.transform.position + new Vector3(0, (LatestTile.Height / 2) + (tile.Height / 2), 0);
-                tile.transform.position = position;
-                tile.DistanceTraveled = LatestTile.DistanceTraveled - LatestTile.Height;
-            }
-        }
-        LatestTile = tile;
     }
 }

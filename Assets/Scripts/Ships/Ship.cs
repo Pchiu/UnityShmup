@@ -1,35 +1,36 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Enums;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Base.AbstractClasses;
+using Assets.Scripts.Enums;
 
-public class Ship : AbstractMovable {
+namespace Assets.Scripts.Ships
+{
+    public class Ship : AbstractMovable {
 
-    public List<ShipSection> ShipSections;
-    public Dictionary<string, SubsystemGroup> SubsystemGroups;
+        public List<ShipSection> ShipSections;
+        public Dictionary<string, SubsystemGroup> SubsystemGroups;
 
-    public Ship(string ID) : base(ID) { }
+        public Ship(string ID) : base(ID) { }
 
-    public void ToggleWeapons(bool toggle)
-    {
-        var group = SubsystemGroups["Weapons"];
-        foreach (Subsystem subsystem in group.Subsystems)
+        public void ToggleWeapons(bool toggle)
         {
-            subsystem.ToggleAction(toggle);
+            var group = SubsystemGroups["Weapons"];
+            foreach (Subsystem subsystem in group.Subsystems)
+            {
+                subsystem.ToggleAction(toggle);
+            }
         }
-    }
 
-    public void CheckCriticalSections()
-    {
-        if (ShipSections.Where(s => s.Type == ShipSectionTypes.Critical).Count() == 0)
+        public void CheckCriticalSections()
         {
-            Destroy(this.gameObject);
+            if (ShipSections.Where(s => s.Type == ShipSectionTypes.Critical).Count() == 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
-    }
 
 
-    /*
+        /*
     public int Hull = 1;
     public List<Subsystem> Subsystems;
     public List<Hardpoint> Hardpoints;
@@ -102,4 +103,5 @@ public class Ship : AbstractMovable {
         }
     }
     */
+    }
 }

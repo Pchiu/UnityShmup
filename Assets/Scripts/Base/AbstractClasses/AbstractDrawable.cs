@@ -1,25 +1,28 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Base.Interfaces;
 
-public class AbstractDrawable : AbstractIdentifiable, IDrawable
+namespace Assets.Scripts.Base.AbstractClasses
 {
-    public List<Effect> effects;
-    public float turnRate;
-
-    public float TurnRate
+    public class AbstractDrawable : AbstractIdentifiable, IDrawable
     {
-        get { return turnRate; }
-        set { turnRate = value; }
-    }
+        public List<Effect> effects;
+        public float turnRate;
+        public List<Behavior.Behavior> BehaviorList;
 
-    public List<Effect> Effects
-    {
-        get { return effects; }
-        set { effects = value; }
-    }
+        public float TurnRate
+        {
+            get { return turnRate; }
+            set { turnRate = value; }
+        }
+
+        public List<Effect> Effects
+        {
+            get { return effects; }
+            set { effects = value; }
+        }
 
     
 
-    public AbstractDrawable(string ID) : base(ID) { }
+        public AbstractDrawable(string ID) : base(ID) { }
+    }
 }

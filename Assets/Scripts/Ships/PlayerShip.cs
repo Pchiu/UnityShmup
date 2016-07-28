@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿namespace Assets.Scripts.Ships
+{
+    public class PlayerShip : Ship {
 
-public class PlayerShip : Ship {
+        public float Speed;
 
-    public float Speed;
-
-    public PlayerShip(string ID) : base(ID) { }
+        public PlayerShip(string ID) : base(ID) { }
+    }
 }

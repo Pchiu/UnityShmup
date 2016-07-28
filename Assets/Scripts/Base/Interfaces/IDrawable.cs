@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Assets.Scripts.Base.Interfaces
+{
+    public interface IDrawable : IIdentifiable {
 
-public interface IDrawable : IIdentifiable {
-
-    float TurnRate { get; set; }
+        float TurnRate { get; set; }
+    }
 }

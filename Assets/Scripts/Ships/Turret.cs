@@ -1,19 +1,19 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Assets.Scripts.Ships
+{
+    public class Turret : Subsystem {
 
-public class Turret : Subsystem {
-
-    public Weapon Weapon;
-    public float InitialAngle;
-    public float MaxDeviation;
-    public float TurnRate;
-	// Use this for initialization
-	void Start () {
+        public Weapon Weapon;
+        public float InitialAngle;
+        public float MaxDeviation;
+        public float TurnRate;
+        // Use this for initialization
+        void Start () {
 	
-	}
+        }
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        void Update () {
 	
-	}
+        }
+    }
 }

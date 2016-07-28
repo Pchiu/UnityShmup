@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Movement;
+using Assets.Scripts.Utilities;
 
 public class Movable : Entity {
 

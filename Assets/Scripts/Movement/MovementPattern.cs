@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public class MovementPattern {
+namespace Assets.Scripts.Movement
+{
+    public class MovementPattern {
 
-    public List<MovementAction> MovementActions;
-    public int Repeat;
+        public List<MovementAction> MovementActions;
+        public int Repeat;
+    }
 }

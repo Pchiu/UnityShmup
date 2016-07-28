@@ -1,84 +1,87 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Enums;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Base.AbstractClasses;
+using Assets.Scripts.Enums;
+using UnityEngine;
 
-public class ShipSection : AbstractCollidable {
+namespace Assets.Scripts.Ships
+{
+    public class ShipSection : AbstractCollidable {
 
-    public int Hull;
-    public List<Subsystem> Subsystems;
-    public List<Hardpoint> Hardpoints;
-    public ShipSectionTypes Type;
-    public Ship Ship;
+        public int Hull;
+        public List<Subsystem> Subsystems;
+        public List<Hardpoint> Hardpoints;
+        public ShipSectionTypes Type;
+        public Ship Ship;
 
 
-    public ShipSection(string ID) : base(ID) { }
+        public ShipSection(string ID) : base(ID) { }
 
-    void Awake()
-    {
-        Subsystems = new List<Subsystem>();
-        Hardpoints = new List<Hardpoint>();
-    }
-
-    public void ToggleWeapons(bool toggle)
-    {
-        foreach (Subsystem subsystem in Subsystems)
+        void Awake()
         {
-            if (subsystem.Type == SusbsystemTypes.Weapon)
+            Subsystems = new List<Subsystem>();
+            Hardpoints = new List<Hardpoint>();
+        }
+
+        public void ToggleWeapons(bool toggle)
+        {
+            foreach (Subsystem subsystem in Subsystems)
             {
-                subsystem.ToggleAction(toggle);
+                if (subsystem.Type == SusbsystemTypes.Weapon)
+                {
+                    subsystem.ToggleAction(toggle);
+                }
             }
         }
-    }
 
-    public virtual void TakeDamage(int damage)
-    {
-        Hull -= damage;
-        if (Hull <= 0)
+        public virtual void TakeDamage(int damage)
         {
-            Destroy(this.gameObject);
-            Ship.CheckCriticalSections();
-        }
-    }
-
-    public virtual void Update()
-    {
-        foreach (Effect effect in Effects)
-        {
-            if (effect.EffectType == EffectTypes.ThrusterAnimation)
+            Hull -= damage;
+            if (Hull <= 0)
             {
-                Animator animator = effect.GetComponent<Animator>();
-                if (animator != null)
+                Destroy(this.gameObject);
+                Ship.CheckCriticalSections();
+            }
+        }
+
+        public virtual void Update()
+        {
+            foreach (Effect effect in Effects)
+            {
+                if (effect.EffectType == EffectTypes.ThrusterAnimation)
                 {
-                    if (Ship.MovementVector != Vector3.zero)
+                    Animator animator = effect.GetComponent<Animator>();
+                    if (animator != null)
                     {
-                        Quaternion movementRotation = Quaternion.LookRotation(Vector3.forward, Ship.MovementVector);
-                        float angle = Quaternion.Angle(movementRotation, effect.transform.rotation);
-                        if (angle <= 45)
+                        if (Ship.MovementVector != Vector3.zero)
                         {
-                            animator.SetFloat("ThrustCoefficient", 1);
+                            Quaternion movementRotation = Quaternion.LookRotation(Vector3.forward, Ship.MovementVector);
+                            float angle = Quaternion.Angle(movementRotation, effect.transform.rotation);
+                            if (angle <= 45)
+                            {
+                                animator.SetFloat("ThrustCoefficient", 1);
+                            }
+                            else
+                            {
+                                animator.SetFloat("ThrustCoefficient", 0);
+                            }
                         }
                         else
                         {
                             animator.SetFloat("ThrustCoefficient", 0);
                         }
                     }
-                    else
-                    {
-                        animator.SetFloat("ThrustCoefficient", 0);
-                    }
                 }
             }
         }
-    }
 
-    public override void Collide()
-    {
+        public override void Collide()
+        {
         
-    }
+        }
 
-    public void Collide(int damage)
-    {
+        public void Collide(int damage)
+        {
 
+        }
     }
 }

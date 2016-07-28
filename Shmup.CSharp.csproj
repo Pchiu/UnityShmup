@@ -81,6 +81,10 @@
     <Compile Include="Assets\Scripts\Base\Interfaces\IMovable.cs" />
     <Compile Include="Assets\Scripts\Base\Interfaces\iShot.cs" />
     <Compile Include="Assets\Scripts\Base\Movable.cs" />
+    <Compile Include="Assets\Scripts\Behavior\Behavior.cs" />
+    <Compile Include="Assets\Scripts\Behavior\FireBehavior.cs" />
+    <Compile Include="Assets\Scripts\Behavior\IdleBehavior.cs" />
+    <Compile Include="Assets\Scripts\Behavior\RotateBehavior.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
@@ -89,7 +93,7 @@
     <Compile Include="Assets\Scripts\DataManagement\LevelDataManager.cs" />
     <Compile Include="Assets\Scripts\DataManagement\MovementPatternDataManager.cs" />
     <Compile Include="Assets\Scripts\DataManagement\ShotDataManager.cs" />
-    <Compile Include="Assets\Scripts\Effect.cs" />
+    <Compile Include="Assets\Scripts\Effects\Effect.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Enums\AreaTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\EffectTypes.cs" />
@@ -97,7 +101,7 @@
     <Compile Include="Assets\Scripts\Enums\ShipSectionTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\ShotTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\SubsystemTypes.cs" />
-    <Compile Include="Assets\Scripts\FirePattern.cs" />
+    <Compile Include="Assets\Scripts\Shots\FirePattern.cs" />
     <Compile Include="Assets\Scripts\Levels\Area.cs" />
     <Compile Include="Assets\Scripts\Levels\Doodad.cs" />
     <Compile Include="Assets\Scripts\Levels\Level.cs" />
@@ -118,8 +122,9 @@
     <Compile Include="Assets\Scripts\Shots\Projectile.cs" />
     <Compile Include="Assets\Scripts\Shots\ShortBeam.cs" />
     <Compile Include="Assets\Scripts\Shots\Shot.cs" />
-    <Compile Include="Assets\Scripts\SpawnPattern.cs" />
-    <Compile Include="Assets\Scripts\Utilities.cs" />
+    <Compile Include="Assets\Scripts\Shots\SpawnPattern.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Utilities.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

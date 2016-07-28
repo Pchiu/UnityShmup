@@ -1,18 +1,19 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Enums;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Enums;
 
-public class Area {
+namespace Assets.Scripts.Levels
+{
+    public class Area {
 
-    public AreaTypes AreaType;
-    public int Time;
-    public float Speed;
-    public string AreaBackgroundImage;
-    public List<Doodad> Doodads;
+        public AreaTypes AreaType;
+        public int Time;
+        public float Speed;
+        public string AreaBackgroundImage;
+        public List<Doodad> Doodads;
 
-    void Start()
-    {
+        void Start()
+        {
         
+        }
     }
 }

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Assets.Scripts.Base.Interfaces
+{
+    interface ICollidable : IDrawable {
 
-interface ICollidable : IDrawable {
-
-    void Collide();
+        void Collide();
+    }
 }

@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Doodad : Entity {
+namespace Assets.Scripts.Levels
+{
+    public class Doodad : Entity {
 
-    public float Time;
-    public Vector3 Position;
-    public float Height;
+        public float Time;
+        public Vector3 Position;
+        public float Height;
 
-	// Use this for initialization
-	void Start () {
+        // Use this for initialization
+        void Start () {
 	    
-	}
+        }
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        void Update () {
 	
-	}
+        }
+    }
 }

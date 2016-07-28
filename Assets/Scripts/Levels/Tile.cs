@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Tile : MonoBehaviour {
+namespace Assets.Scripts.Levels
+{
+    public class Tile : MonoBehaviour {
 
-    public float DistanceTraveled;
-    public float Height;
-	// Use this for initialization
-	void Start () {
+        public float DistanceTraveled;
+        public float Height;
+        // Use this for initialization
+        void Start () {
 	
-	}
+        }
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        void Update () {
 	
-	}
+        }
+    }
 }

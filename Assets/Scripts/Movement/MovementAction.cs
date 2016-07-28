@@ -1,17 +1,17 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Assets.Scripts.Movement
+{
+    public abstract class MovementAction{
 
-public abstract class MovementAction{
-
-    public float Time;
-    public string ReferenceFrame;
-    // Use this for initialization
-    void Start () {
+        public float Time;
+        public string ReferenceFrame;
+        // Use this for initialization
+        void Start () {
 	
-	}
+        }
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        void Update () {
 	
-	}
+        }
+    }
 }

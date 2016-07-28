@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-namespace Enums
+﻿namespace Assets.Scripts.Enums
 {
     public enum SusbsystemTypes
     {

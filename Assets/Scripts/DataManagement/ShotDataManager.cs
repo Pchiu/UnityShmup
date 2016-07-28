@@ -1,13 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Base.Interfaces;
+using UnityEngine;
 
-public class ShotDataManager : MonoBehaviour {
+namespace Assets.Scripts.DataManagement
+{
+    public class ShotDataManager : MonoBehaviour {
 
-    public Dictionary<string, IShot> Shots;
+        public Dictionary<string, IShot> Shots;
 
-    public bool AddShot()
-    {
-        return true;
+        public bool AddShot()
+        {
+            return true;
+        }
     }
 }

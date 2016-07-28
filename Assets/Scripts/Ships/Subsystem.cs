@@ -1,28 +1,29 @@
-﻿using UnityEngine;
-using System.Collections;
-using Enums;
+﻿using Assets.Scripts.Enums;
 
-public abstract class Subsystem : Entity {
+namespace Assets.Scripts.Ships
+{
+    public abstract class Subsystem : Entity {
 
-    public SusbsystemTypes Type;
-    public bool Active;
-	// Use this for initialization
-	void Start () {
+        public SusbsystemTypes Type;
+        public bool Active;
+        // Use this for initialization
+        void Start () {
 	
-	}
+        }
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        void Update () {
 	
-	}
+        }
 
-    public virtual void Action()
-    {
+        public virtual void Action()
+        {
 
-    }
+        }
 
-    public virtual void ToggleAction(bool toggle)
-    {
+        public virtual void ToggleAction(bool toggle)
+        {
 
+        }
     }
 }

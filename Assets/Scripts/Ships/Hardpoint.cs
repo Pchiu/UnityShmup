@@ -1,25 +1,27 @@
-﻿using UnityEngine;
-using System.Collections;
-using Enums;
+﻿using Assets.Scripts.Enums;
+using UnityEngine;
 
-public class Hardpoint : MonoBehaviour {
+namespace Assets.Scripts.Ships
+{
+    public class Hardpoint : MonoBehaviour {
 
-    public SusbsystemTypes Type;
-    public Vector2 Position;
+        public SusbsystemTypes Type;
+        public Vector2 Position;
 
-    public Hardpoint(SusbsystemTypes Type, Vector2 Position)
-    {
-        this.Type = Type;
-        this.Position = Position;
-    }
+        public Hardpoint(SusbsystemTypes Type, Vector2 Position)
+        {
+            this.Type = Type;
+            this.Position = Position;
+        }
     
-    // Use this for initialization
-	void Start () {
+        // Use this for initialization
+        void Start () {
 	
-	}
+        }
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        void Update () {
 	
-	}
+        }
+    }
 }

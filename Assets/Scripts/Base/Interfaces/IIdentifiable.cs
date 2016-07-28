@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Assets.Scripts.Base.Interfaces
+{
+    public interface IIdentifiable {
 
-public interface IIdentifiable {
-
-	string ID { get; }
+        string ID { get; }
+    }
 }
