@@ -8,7 +8,6 @@ namespace Assets.Scripts.Ships
     public class ShipSection : AbstractCollidable {
 
         public int Hull;
-        public List<Subsystem> Subsystems;
         public List<Hardpoint> Hardpoints;
         public ShipSectionTypes Type;
         public Ship Ship;
@@ -18,10 +17,9 @@ namespace Assets.Scripts.Ships
 
         void Awake()
         {
-            Subsystems = new List<Subsystem>();
             Hardpoints = new List<Hardpoint>();
         }
-
+        /*
         public void ToggleWeapons(bool toggle)
         {
             foreach (Subsystem subsystem in Subsystems)
@@ -32,7 +30,7 @@ namespace Assets.Scripts.Ships
                 }
             }
         }
-
+        */
         public virtual void TakeDamage(int damage)
         {
             Hull -= damage;

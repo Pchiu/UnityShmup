@@ -7,11 +7,13 @@ namespace Assets.Scripts.Ships
 
         public SusbsystemTypes Type;
         public Vector2 Position;
+        public Subsystem Subsystem;
 
         public Hardpoint(SusbsystemTypes Type, Vector2 Position)
         {
             this.Type = Type;
             this.Position = Position;
+            this.Subsystem = null;
         }
     
         // Use this for initialization
