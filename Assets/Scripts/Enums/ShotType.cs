@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums
 {
-    public enum ShotTypes
+    public enum ShotType
     {
         Projectile,
         ShortBeam,

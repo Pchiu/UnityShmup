@@ -97,11 +97,13 @@
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Enums\AreaTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\EffectTypes.cs" />
-    <Compile Include="Assets\Scripts\Enums\FireModes.cs" />
-    <Compile Include="Assets\Scripts\Enums\ShipSectionTypes.cs" />
-    <Compile Include="Assets\Scripts\Enums\ShotTypes.cs" />
-    <Compile Include="Assets\Scripts\Enums\SubsystemTypes.cs" />
-    <Compile Include="Assets\Scripts\Shots\FirePattern.cs" />
+    <Compile Include="Assets\Scripts\Enums\FireMode.cs" />
+    <Compile Include="Assets\Scripts\Enums\ShipSectionType.cs" />
+    <Compile Include="Assets\Scripts\Enums\ShotType.cs" />
+    <Compile Include="Assets\Scripts\Enums\SubsystemType.cs" />
+    <Compile Include="Assets\Scripts\GameData\Hardpoint.cs" />
+    <Compile Include="Assets\Scripts\GameData\ShipPhase.cs" />
+    <Compile Include="Assets\Scripts\GameData\ShipSection.cs" />
     <Compile Include="Assets\Scripts\Levels\Area.cs" />
     <Compile Include="Assets\Scripts\Levels\Doodad.cs" />
     <Compile Include="Assets\Scripts\Levels\Level.cs" />
@@ -111,20 +113,21 @@
     <Compile Include="Assets\Scripts\Movement\VectorMovementAction.cs" />
     <Compile Include="Assets\Scripts\Movement\WaypointMovementAction.cs" />
     <Compile Include="Assets\Scripts\Ships\Hardpoint.cs" />
+    <Compile Include="Assets\Scripts\Ships\HardpointGroup.cs" />
     <Compile Include="Assets\Scripts\Ships\PlayerShip.cs" />
     <Compile Include="Assets\Scripts\Ships\Ship.cs" />
+    <Compile Include="Assets\Scripts\Ships\ShipPhase.cs" />
     <Compile Include="Assets\Scripts\Ships\ShipSection.cs" />
     <Compile Include="Assets\Scripts\Ships\Subsystem.cs" />
-    <Compile Include="Assets\Scripts\Ships\SubsystemGroup.cs" />
     <Compile Include="Assets\Scripts\Ships\Turret.cs" />
     <Compile Include="Assets\Scripts\Ships\Weapon.cs" />
     <Compile Include="Assets\Scripts\Shots\Beam.cs" />
+    <Compile Include="Assets\Scripts\Shots\FirePattern.cs" />
     <Compile Include="Assets\Scripts\Shots\Projectile.cs" />
     <Compile Include="Assets\Scripts\Shots\ShortBeam.cs" />
     <Compile Include="Assets\Scripts\Shots\Shot.cs" />
     <Compile Include="Assets\Scripts\Shots\SpawnPattern.cs" />
     <Compile Include="Assets\Scripts\Utilities\Utilities.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

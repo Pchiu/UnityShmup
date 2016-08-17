@@ -12,14 +12,16 @@ namespace Assets.Scripts.Ships
         public List<Transform> ShotOrigins;
         public IShot Shot;
         public FirePattern FirePattern;
-        public FireModes FireMode;
+        public FireMode FireMode;
         public bool isFiring;
         private bool isFiringCycleActive;
         private float TimeElapsed;
         private int Index;
         private int ShotOriginIndex;
         private System.Random RandomGenerator;
-    
+
+        public Weapon(string ID) : base(ID) { }
+
         // Use this for initialization
         void Start () {
             isFiring = false;
@@ -55,7 +57,7 @@ namespace Assets.Scripts.Ships
                             {
                                 switch (FireMode)
                                 {
-                                    case FireModes.Loop:
+                                    case FireMode.Loop:
                                         SpawnShot(shot, ShotOrigins[ShotOriginIndex].position, ShotOrigins[ShotOriginIndex].rotation);
                                         ShotOriginIndex++;
                                         if (ShotOriginIndex >= ShotOrigins.Count)
@@ -64,11 +66,11 @@ namespace Assets.Scripts.Ships
                                         }
 
                                         break;
-                                    case FireModes.Random:
+                                    case FireMode.Random:
                                         ShotOriginIndex = RandomGenerator.Next(0, ShotOrigins.Count);
                                         SpawnShot(shot, ShotOrigins[ShotOriginIndex].position, ShotOrigins[ShotOriginIndex].rotation);
                                         break;
-                                    case FireModes.Single:
+                                    case FireMode.Single:
                                     default:
                                         SpawnShot(shot, ShotOrigins[ShotOriginIndex].position, ShotOrigins[ShotOriginIndex].rotation);
                                         break;

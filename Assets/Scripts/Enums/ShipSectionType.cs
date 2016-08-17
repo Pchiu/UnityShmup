@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums
 {
-    public enum ShipSectionTypes
+    public enum ShipSectionType
     {
         Standard,
         Critical,

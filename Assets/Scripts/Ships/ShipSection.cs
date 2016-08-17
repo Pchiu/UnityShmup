@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.Ships
 {
-    public class ShipSection : AbstractCollidable {
+    public class ShipSection : AbstractMovableCollidable {
 
         public int Hull;
         public List<Hardpoint> Hardpoints;
-        public ShipSectionTypes Type;
+        public ShipSectionType Type;
         public Ship Ship;
 
 

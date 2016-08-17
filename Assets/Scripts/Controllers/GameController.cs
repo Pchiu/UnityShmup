@@ -27,8 +27,11 @@ namespace Assets.Scripts.Controllers
             GameDataManager.Instance.MovementPatternManager.CreateTestMovementPattern();
             GameDataManager.Instance.MovementPatternManager.CreateTestShotPattern();
 
-            PlayerController.CreateTestShip();
+            var ship = ShipController.AssembleTestShip();
+            ship.Initialize();
+            //PlayerController.CreateTestShip();
 
+            /*
             Ship enemy = ShipController.SpawnShip("Interceptor1", new Vector2(5, 0), 90);
             enemy.MovementPattern = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestPattern"];
             enemy.SetTarget(PlayerController.PlayerShip.transform);

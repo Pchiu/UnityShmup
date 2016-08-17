@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums
 {
-    public enum SusbsystemTypes
+    public enum SubsystemType
     {
         Turret,
         Weapon,

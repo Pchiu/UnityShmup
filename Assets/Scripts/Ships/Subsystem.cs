@@ -1,12 +1,16 @@
-﻿using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Base.AbstractClasses;
+using Assets.Scripts.Enums;
 
 namespace Assets.Scripts.Ships
 {
-    public abstract class Subsystem : Entity {
+    public abstract class Subsystem : AbstractDrawable {
 
-        public SusbsystemTypes Type;
+        public SubsystemType Type;
         public bool Active;
         // Use this for initialization
+
+        public Subsystem(string ID) : base(ID) { }
+
         void Start () {
 	
         }

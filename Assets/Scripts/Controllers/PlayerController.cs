@@ -20,14 +20,14 @@ namespace Assets.Scripts.Controllers
         // Use this for initialization
         void Start () {
             SetBounds();
-            InputEnabled = true;
+            InputEnabled = false;
             AllRange = true;
             //CreateTestShip();
         }
 
         public void CreateTestShip()
         {
-        
+            /*
             GameObject shipObject = Instantiate(Resources.Load("Prefabs/TestPlayerShip")) as GameObject;
             PlayerShip ship = shipObject.GetComponent<PlayerShip>();
             ShipSection mainSection = ship.ShipSections[0].GetComponent<ShipSection>();
@@ -36,8 +36,8 @@ namespace Assets.Scripts.Controllers
             mainSection.Hardpoints = new List<Hardpoint>();
             mainSection.Effects = new List<Effect>();
             mainSection.Ship = ship;
-            mainSection.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(-0.1f, 0)));
-            mainSection.Hardpoints.Add(new Hardpoint(SusbsystemTypes.Weapon, new Vector2(0.1f, 0)));
+            mainSection.Hardpoints.Add(new Hardpoint(SubsystemType.Weapon, new Vector2(-0.1f, 0)));
+            mainSection.Hardpoints.Add(new Hardpoint(SubsystemType.Weapon, new Vector2(0.1f, 0)));
 
             var hardpointGroup = new HardpointGroup();
             hardpointGroup.Name = "Weapons";
@@ -45,11 +45,11 @@ namespace Assets.Scripts.Controllers
             hardpointGroup.Hardpoints.Add(mainSection.Hardpoints[0]);
             hardpointGroup.Hardpoints.Add(mainSection.Hardpoints[1]);
             ship.HardpointGroups.Add(hardpointGroup.Name, hardpointGroup);
-            /*
+            
         GameObject shotObject = Resources.Load("Prefabs/Beam1") as GameObject;
         ShortBeam shot = shotObject.GetComponent<ShortBeam>();
         shotObject.tag = "FriendlyShot";
-        */
+        
 
             GameObject shotObject = Resources.Load("Prefabs/BulletAnimated") as GameObject;
             Projectile shot = shotObject.GetComponent<Projectile>();
@@ -62,13 +62,13 @@ namespace Assets.Scripts.Controllers
             gun1.transform.parent = mainSection.transform;
             gun1.transform.position = mainSection.Hardpoints[0].Position;
             mainSection.Hardpoints[0].Subsystem = gun1;
-            /*
+            
             var subsystemGroup = new HardpointGroup();
             subsystemGroup.Name = "Weapons";
             subsystemGroup.Hardpoints.Add(gun1);
             subsystemGroup.Enabled = true;
             ship.SubsystemGroups.Add(subsystemGroup.Name, subsystemGroup);
-            */
+            
 
             GameObject engineFlareObject = Instantiate(Resources.Load("Prefabs/EngineFlare1"), new Vector3(0, -.4f, 0), mainSection.transform.rotation) as GameObject;
             Effect engineFlare = engineFlareObject.GetComponent<Effect>();
@@ -90,9 +90,10 @@ namespace Assets.Scripts.Controllers
             pattern1.TotalTime = 100;
 
             gun1.FirePattern = pattern1;
-            gun1.FireMode = FireModes.Single;
+            gun1.FireMode = FireMode.Single;
 
             PlayerShip = ship;
+            */
         }
 
         // Update is called once per frame

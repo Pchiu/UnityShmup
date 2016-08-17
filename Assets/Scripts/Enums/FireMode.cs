@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums
 {
-    public enum FireModes
+    public enum FireMode
     {
         Single,
         Loop,

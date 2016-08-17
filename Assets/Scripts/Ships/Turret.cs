@@ -6,6 +6,8 @@
         public float InitialAngle;
         public float MaxDeviation;
         public float TurnRate;
+
+        public Turret(string ID) : base(ID) { }
         // Use this for initialization
         void Start () {
 	

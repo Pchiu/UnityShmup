@@ -6,7 +6,7 @@ namespace Assets.Scripts.Base.AbstractClasses
     {
         public AbstractMovableCollidable(string ID) : base(ID) { }
 
-        public void Collide()
+        public virtual void Collide()
         {
 
         }
