@@ -28,10 +28,11 @@ namespace Assets.Scripts.Controllers
             return ShipObject.GetComponent<Ship>();   
         }
 
-        public Ship AssembleTestShip()
+        public GameObject AssembleTestShip()
         {
-            GameObject ShipObject = new GameObject();
-            var ship = ShipObject.AddComponent<Ship>();
+            GameObject shipObject = new GameObject();
+            var ship = shipObject.AddComponent<Ship>();
+            //ship.tag = "Enemy";
             ship.HardpointGroups = new Dictionary<string, HardpointGroup>();
             ship.ShipPhases = new List<ShipPhase>();
             ship.ShipSections = new List<ShipSection>();
@@ -49,7 +50,7 @@ namespace Assets.Scripts.Controllers
             subsystemTypes.Add(SubsystemType.Weapon);
 
             var section2 = new GameData.ShipSection();
-            section2.Offset = new Vector2(2,0);
+            section2.Offset = new Vector2(1.95f,0);
             section2.Name = "ShipPartRectangle";
             section2.Hardpoints = new List<GameData.Hardpoint>();
             section2.Hardpoints.Add(new GameData.Hardpoint {Classes = subsystemTypes, Group = "Weapon", Origin = new Vector2(0,2), SubsystemID = null });
@@ -59,7 +60,7 @@ namespace Assets.Scripts.Controllers
             
 
             var section3 = new GameData.ShipSection();
-            section3.Offset = new Vector2(-2, 0);
+            section3.Offset = new Vector2(-1.95f, 0);
             section3.Name = "ShipPartRectangle";
             section3.Hardpoints = new List<GameData.Hardpoint>();
             section3.Hardpoints.Add(new GameData.Hardpoint { Classes = subsystemTypes, Group = "Weapon", Origin = new Vector2(0,2), SubsystemID = null });
@@ -72,7 +73,8 @@ namespace Assets.Scripts.Controllers
 
             var phase1 = AssembleShipPhase(ship, phaseData);
             ship.ShipPhases.Add(phase1);
-            return ship;
+            ship.transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
+            return shipObject;
         }
 
         public Ship AssembleShip()
@@ -98,20 +100,27 @@ namespace Assets.Scripts.Controllers
         {
             GameObject shipSectionObject =
                 Instantiate(Resources.Load("Prefabs/ShipSections/" + sectionData.Name)) as GameObject;
+            shipSectionObject.GetComponent<Renderer>().enabled = false;
+            shipSectionObject.GetComponent<Collider2D>().enabled = false;
             ShipSection shipSection = shipSectionObject.GetComponent<ShipSection>();
             shipSection.Type = sectionData.Type;
             var hardpointObjects = new List<Hardpoint>();
             foreach (var hardpoint in sectionData.Hardpoints)
             {
-                var hardpointObject = new Hardpoint(hardpoint.Classes, hardpoint.Origin);
-                hardpointObject.Subsystem = null;
-                shipSection.Hardpoints.Add(hardpointObject);
+                GameObject hardpointObject = new GameObject();
+                var hardpointComponent = hardpointObject.AddComponent<Hardpoint>();
+                //var hardpointObject = new Hardpoint(hardpoint.Classes, hardpoint.Origin);
+                hardpointComponent.Types = hardpoint.Classes;
+                hardpointComponent.Position = hardpoint.Origin;
+                hardpointComponent.Subsystem = null;
+                shipSection.Hardpoints.Add(hardpointComponent);
                 if (!phase.HardpointGroups.ContainsKey(hardpoint.Group))
                 {
                     phase.HardpointGroups.Add(hardpoint.Group, new HardpointGroup());
                     phase.HardpointGroups[hardpoint.Group].Name = hardpoint.Group;
                 }
-                phase.HardpointGroups[hardpoint.Group].Hardpoints.Add(hardpointObject);
+                phase.HardpointGroups[hardpoint.Group].Hardpoints.Add(hardpointComponent);
+                hardpointComponent.transform.parent = shipSection.transform;
             }
             shipSection.transform.position = phase.Ship.transform.position + new Vector3(sectionData.Offset.x, sectionData.Offset.y);
             shipSection.Hull = sectionData.Hull;

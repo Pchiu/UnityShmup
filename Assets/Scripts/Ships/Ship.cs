@@ -40,7 +40,12 @@ namespace Assets.Scripts.Ships
             ShipSections = shipPhase.ShipSections;
             foreach (var section in ShipSections)
             {
+                section.tag = this.tag;
                 section.transform.parent = this.transform;
+                section.transform.position = this.transform.position + this.transform.rotation * (section.transform.position);
+                section.transform.rotation = this.transform.rotation;
+                section.GetComponent<Renderer>().enabled = true;
+                section.GetComponent<Collider2D>().enabled = true;
             }
             MovementPattern = shipPhase.MovementPattern;
             HardpointGroups = shipPhase.HardpointGroups;

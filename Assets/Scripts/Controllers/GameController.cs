@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataManagement;
 using Assets.Scripts.Ships;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -27,8 +28,13 @@ namespace Assets.Scripts.Controllers
             GameDataManager.Instance.MovementPatternManager.CreateTestMovementPattern();
             GameDataManager.Instance.MovementPatternManager.CreateTestShotPattern();
 
-            var ship = ShipController.AssembleTestShip();
+            var shipObject = ShipController.AssembleTestShip();
+            var ship = shipObject.GetComponent<Ship>();
             ship.Initialize();
+            //PrefabUtility.CreatePrefab("./Resources/Prefabs/Ships/TestShip.prefab", shipObject, ReplacePrefabOptions.Default);
+            //Destroy(shipObject);
+
+            //ship.Initialize();
             //PlayerController.CreateTestShip();
 
             /*
