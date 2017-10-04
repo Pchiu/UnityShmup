@@ -9,9 +9,9 @@ namespace Assets.Scripts.GameData
 {
     public class Hardpoint
     {
-        public List<SubsystemType> Classes { get; set; }
+        public List<SubsystemType> Types { get; set; }
         public string Group { get; set; }
-        public Vector2 Origin { get; set; }
+        public Vector2 Position { get; set; }
         public string SubsystemID { get; set; }
     }
 }

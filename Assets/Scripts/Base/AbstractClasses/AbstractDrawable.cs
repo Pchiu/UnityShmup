@@ -21,8 +21,15 @@ namespace Assets.Scripts.Base.AbstractClasses
             set { effects = value; }
         }
 
-    
+        public virtual void Awake()
+        {
+            Effects = new List<Effect>();
+            BehaviorList = new List<Behavior.Behavior>();
+        }
 
-        public AbstractDrawable(string ID) : base(ID) { }
+        public AbstractDrawable(string ID) : base(ID)
+        {
+            
+        }
     }
 }

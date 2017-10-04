@@ -53,17 +53,15 @@ namespace Assets.Scripts.Controllers
             section2.Offset = new Vector2(1.95f,0);
             section2.Name = "ShipPartRectangle";
             section2.Hardpoints = new List<GameData.Hardpoint>();
-            section2.Hardpoints.Add(new GameData.Hardpoint {Classes = subsystemTypes, Group = "Weapon", Origin = new Vector2(0,2), SubsystemID = null });
+            section2.Hardpoints.Add(new GameData.Hardpoint {Types = subsystemTypes, Group = "Weapon", Position = new Vector2(0,2), SubsystemID = null });
             section2.Hull = 10;
             section2.Type = ShipSectionType.Standard;
-
-            
 
             var section3 = new GameData.ShipSection();
             section3.Offset = new Vector2(-1.95f, 0);
             section3.Name = "ShipPartRectangle";
             section3.Hardpoints = new List<GameData.Hardpoint>();
-            section3.Hardpoints.Add(new GameData.Hardpoint { Classes = subsystemTypes, Group = "Weapon", Origin = new Vector2(0,2), SubsystemID = null });
+            section3.Hardpoints.Add(new GameData.Hardpoint { Types = subsystemTypes, Group = "Weapon", Position = new Vector2(0,2), SubsystemID = null });
             section3.Hull = 10;
             section3.Type = ShipSectionType.Standard;
 
@@ -104,14 +102,14 @@ namespace Assets.Scripts.Controllers
             shipSectionObject.GetComponent<Collider2D>().enabled = false;
             ShipSection shipSection = shipSectionObject.GetComponent<ShipSection>();
             shipSection.Type = sectionData.Type;
+            shipSection.Ship = phase.Ship;
             var hardpointObjects = new List<Hardpoint>();
             foreach (var hardpoint in sectionData.Hardpoints)
             {
                 GameObject hardpointObject = new GameObject();
                 var hardpointComponent = hardpointObject.AddComponent<Hardpoint>();
-                //var hardpointObject = new Hardpoint(hardpoint.Classes, hardpoint.Origin);
-                hardpointComponent.Types = hardpoint.Classes;
-                hardpointComponent.Position = hardpoint.Origin;
+                hardpointComponent.Types = hardpoint.Types;
+                hardpointComponent.Position = hardpoint.Position;
                 hardpointComponent.Subsystem = null;
                 shipSection.Hardpoints.Add(hardpointComponent);
                 if (!phase.HardpointGroups.ContainsKey(hardpoint.Group))
