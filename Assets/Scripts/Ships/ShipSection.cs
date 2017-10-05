@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Base.AbstractClasses;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Animations;
 using UnityEngine;
 
 namespace Assets.Scripts.Ships
@@ -11,6 +13,7 @@ namespace Assets.Scripts.Ships
         public List<Hardpoint> Hardpoints;
         public ShipSectionType Type;
         public Ship Ship;
+        public GameObject DeathAnimation;
 
 
         public ShipSection(string ID) : base(ID) { }
@@ -36,8 +39,22 @@ namespace Assets.Scripts.Ships
             Hull -= damage;
             if (Hull <= 0)
             {
-                Destroy(this.gameObject);
+                Ship.ShipSections.Remove(this);
+
+                // Move to some controller
+                GameObject animationSpawner = new GameObject();
+                var spawner = animationSpawner.AddComponent<AnimationSpawner>();
+                spawner.Duration = 3f;
+                spawner.Radius = 3;
+                spawner.transform.parent = this.transform;
+                spawner.transform.position = this.transform.position;
+                spawner.Items.Add(new AnimationSpawnerItem { Sprite = DeathAnimation, Interval = 0.3f });
+                spawner.Parent = this.gameObject;
+                spawner.Initialize();
+
+                //StartCoroutine(Die());
                 Ship.CheckCriticalSections();
+
             }
         }
 

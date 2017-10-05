@@ -68,7 +68,7 @@ namespace Assets.Scripts.Ships
 
         public void CheckCriticalSections()
         {
-            if (ShipSections.Any(s => s.Type == ShipSectionType.Critical))
+            if (!ShipSections.Any(s => s.Type == ShipSectionType.Critical))
             {
                 if (CurrentPhaseIndex >= ShipPhases.Count)
                 {

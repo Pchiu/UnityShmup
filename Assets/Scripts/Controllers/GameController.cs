@@ -35,7 +35,7 @@ namespace Assets.Scripts.Controllers
             //Destroy(shipObject);
 
             //ship.Initialize();
-            //PlayerController.CreateTestShip();
+            PlayerController.CreateTestShip();
 
             /*
             Ship enemy = ShipController.SpawnShip("Interceptor1", new Vector2(5, 0), 90);
