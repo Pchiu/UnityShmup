@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Movement;
 using Assets.Scripts.Utilities;
+using Assets.Scripts.Enums;
 
 public class Movable : Entity {
 
@@ -85,7 +86,7 @@ public class Movable : Entity {
             else
             {
                 var VectorAction = (VectorMovementAction)CurrentAction;
-                if (VectorAction.ReferenceFrame == "Local")
+                if (VectorAction.ReferenceFrame == MovementReferenceFrame.Local)
                 {
                     CurrentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
                 }
@@ -106,7 +107,7 @@ public class Movable : Entity {
             var WaypointAction = (WaypointMovementAction)CurrentAction;
             CurrentWaypoints.Clear();
             CurrentWaypoints.Add(transform.position);
-            if (WaypointAction.ReferenceFrame == "Local")
+            if (WaypointAction.ReferenceFrame == MovementReferenceFrame.Local)
             {
                 Vector3 direction = Vector2.zero;
                 foreach (Vector2 controlPoint in WaypointAction.ControlPoints)
@@ -128,7 +129,7 @@ public class Movable : Entity {
         else
         {
             var VectorAction = (VectorMovementAction)CurrentAction;
-            if (VectorAction.ReferenceFrame == "Local")
+            if (VectorAction.ReferenceFrame == MovementReferenceFrame.Local)
             {
                 CurrentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
             }

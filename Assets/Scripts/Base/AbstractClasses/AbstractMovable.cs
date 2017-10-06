@@ -103,7 +103,7 @@ namespace Assets.Scripts.Base.AbstractClasses
                 else
                 {
                     var VectorAction = (VectorMovementAction)CurrentAction;
-                    if (VectorAction.ReferenceFrame == "Local")
+                    if (VectorAction.ReferenceFrame == MovementReferenceFrame.Local)
                     {
                         CurrentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
                     }
