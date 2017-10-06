@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Enums;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Movement
@@ -9,7 +10,7 @@ namespace Assets.Scripts.Movement
         public readonly List<Vector2> ControlPoints;
     
 
-        public WaypointMovementAction (Vector2 origin, List<Vector2> controlPoints, float time, string referenceFrame)
+        public WaypointMovementAction (Vector2 origin, List<Vector2> controlPoints, float time, MovementReferenceFrame referenceFrame)
         {
             this.Origin = origin;
             this.ControlPoints = controlPoints;

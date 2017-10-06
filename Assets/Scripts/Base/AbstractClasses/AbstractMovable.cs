@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Base.Interfaces;
 using Assets.Scripts.Movement;
 using UnityEngine;
+using Assets.Scripts.Enums;
 
 namespace Assets.Scripts.Base.AbstractClasses
 {
@@ -140,7 +141,7 @@ namespace Assets.Scripts.Base.AbstractClasses
                 var WaypointAction = (WaypointMovementAction)CurrentAction;
                 CurrentWaypoints.Clear();
                 CurrentWaypoints.Add(transform.position);
-                if (WaypointAction.ReferenceFrame == "Local")
+                if (WaypointAction.ReferenceFrame == MovementReferenceFrame.Local)
                 {
                     Vector3 direction = Vector2.zero;
                     foreach (Vector2 controlPoint in WaypointAction.ControlPoints)
@@ -161,7 +162,7 @@ namespace Assets.Scripts.Base.AbstractClasses
             else
             {
                 var VectorAction = (VectorMovementAction)CurrentAction;
-                if (VectorAction.ReferenceFrame == "Local")
+                if (VectorAction.ReferenceFrame == MovementReferenceFrame.Local)
                 {
                     CurrentDirection = transform.TransformDirection(new Vector3(Mathf.Sin(Mathf.Deg2Rad * VectorAction.Angle), Mathf.Cos(Mathf.Deg2Rad * VectorAction.Angle)) * VectorAction.Speed);
                 }

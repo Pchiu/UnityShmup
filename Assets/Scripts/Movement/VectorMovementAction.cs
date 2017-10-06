@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Movement
+﻿using Assets.Scripts.Enums;
+
+namespace Assets.Scripts.Movement
 {
     public class VectorMovementAction : MovementAction {
 
@@ -6,7 +8,7 @@
         public float Speed;
         public float TurnTime;
 
-        public VectorMovementAction(float angle, float speed, float turnTime, float time, string referenceFrame)
+        public VectorMovementAction(float angle, float speed, float turnTime, float time, MovementReferenceFrame referenceFrame)
         {
             this.Angle = angle;
             this.Speed = speed;
