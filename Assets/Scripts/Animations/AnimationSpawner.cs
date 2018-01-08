@@ -37,12 +37,9 @@ namespace Assets.Scripts.Animations
         {
             while (true)
             {
-                var angle = Random.Range(0f, 1f) * Mathf.PI * 2;
-                var distance = Random.Range(0f, radius);
-                var x = transform.position.x + radius * Mathf.Cos(angle);
-                var y = transform.position.y + distance * Mathf.Sin(angle);
-                Instantiate(item.Sprite, new Vector3(transform.position.x + distance * Mathf.Cos(angle), transform.position.y + distance * Mathf.Sin(angle), 0), transform.rotation);
-                yield return new WaitForSeconds(1);
+                var randomPosition = Random.insideUnitCircle * radius;
+                Instantiate(item.Sprite, new Vector3(transform.position.x + randomPosition.x, transform.position.y + randomPosition.y, 0), transform.rotation);
+                yield return new WaitForSeconds(item.Interval);
             }
         }
 
