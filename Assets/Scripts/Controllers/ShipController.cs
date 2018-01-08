@@ -39,31 +39,53 @@ namespace Assets.Scripts.Controllers
             var phaseData = new GameData.ShipPhase();
             phaseData.MovementPattern = GameDataManager.Instance.MovementPatternManager.MovementPatterns["TestPattern"];
             phaseData.ShipSections = new List<GameData.ShipSection>();
-            var section1 = new GameData.ShipSection();
-            section1.Offset = new Vector2(0,0);
-            section1.Name = "ShipPartSquare";
-            section1.Hardpoints = new List<GameData.Hardpoint>();
-            section1.Hull = 10;
-            section1.Type = ShipSectionType.Critical;
 
-            var subsystemTypes = new List<SubsystemType>();
-            subsystemTypes.Add(SubsystemType.Weapon);
+            var section1 = new GameData.ShipSection
+            {
+                Offset = new Vector2(0, 0),
+                Name = "ShipPartSquare",
+                Hardpoints = new List<GameData.Hardpoint>(),
+                Hull = 10,
+                Type = ShipSectionType.Critical
+            };
 
-            var section2 = new GameData.ShipSection();
-            section2.Offset = new Vector2(1.95f,0);
-            section2.Name = "ShipPartRectangle";
-            section2.Hardpoints = new List<GameData.Hardpoint>();
-            section2.Hardpoints.Add(new GameData.Hardpoint {Types = subsystemTypes, Group = "Weapon", Position = new Vector2(0,2), SubsystemID = null });
-            section2.Hull = 10;
-            section2.Type = ShipSectionType.Standard;
+            var subsystemTypes = new List<SubsystemType> {SubsystemType.Weapon};
 
-            var section3 = new GameData.ShipSection();
-            section3.Offset = new Vector2(-1.95f, 0);
-            section3.Name = "ShipPartRectangle";
-            section3.Hardpoints = new List<GameData.Hardpoint>();
-            section3.Hardpoints.Add(new GameData.Hardpoint { Types = subsystemTypes, Group = "Weapon", Position = new Vector2(0,2), SubsystemID = null });
-            section3.Hull = 10;
-            section3.Type = ShipSectionType.Standard;
+            var section2 = new GameData.ShipSection
+            {
+                Offset = new Vector2(1.95f, 0),
+                Name = "ShipPartRectangle",
+                Hardpoints = new List<GameData.Hardpoint>
+                {
+                    new GameData.Hardpoint
+                    {
+                        Types = subsystemTypes,
+                        Group = "Weapon",
+                        Position = new Vector2(0, 2),
+                        SubsystemID = null
+                    }
+                },
+                Hull = 10,
+                Type = ShipSectionType.Standard
+            };
+
+            var section3 = new GameData.ShipSection
+            {
+                Offset = new Vector2(-1.95f, 0),
+                Name = "ShipPartRectangle",
+                Hardpoints = new List<GameData.Hardpoint>
+                {
+                    new GameData.Hardpoint
+                    {
+                        Types = subsystemTypes,
+                        Group = "Weapon",
+                        Position = new Vector2(0, 2),
+                        SubsystemID = null
+                    }
+                },
+                Hull = 10,
+                Type = ShipSectionType.Standard
+            };
 
             phaseData.ShipSections.Add(section1);
             phaseData.ShipSections.Add(section2);
