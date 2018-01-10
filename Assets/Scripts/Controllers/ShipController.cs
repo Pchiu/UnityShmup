@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Behaviors;
 using Assets.Scripts.DataManagement;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Movement;
@@ -34,6 +35,7 @@ namespace Assets.Scripts.Controllers
             var ship = shipObject.AddComponent<Ship>();
             //ship.tag = "Enemy";
             ship.HardpointGroups = new Dictionary<string, HardpointGroup>();
+            ship.tag = "Hostile";
             ship.ShipPhases = new List<ShipPhase>();
             ship.ShipSections = new List<ShipSection>();
             var phaseData = new GameData.ShipPhase();
@@ -46,7 +48,13 @@ namespace Assets.Scripts.Controllers
                 Name = "ShipPartSquare",
                 Hardpoints = new List<GameData.Hardpoint>(),
                 Hull = 10,
-                Type = ShipSectionType.Critical
+                DeathBehavior = new DeathBehavior
+                {
+                    ActionQueue = null,
+                    DisableCollider = true,
+                    Type = DeathBehaviorType.Destroy
+                },
+                Type = ShipSectionType.Critical,
             };
 
             var subsystemTypes = new List<SubsystemType> {SubsystemType.Weapon};
@@ -65,6 +73,14 @@ namespace Assets.Scripts.Controllers
                         SubsystemID = null
                     }
                 },
+                DestroyedShipSection = "ShipPartRectangle_Destroyed",
+                DeathBehavior = new DeathBehavior
+                {
+                    ActionQueue = null,
+                    DisableCollider = true,
+                    Type = DeathBehaviorType.Replace,
+                    SectionType = ShipSectionType.Indestructible,
+                },
                 Hull = 10,
                 Type = ShipSectionType.Standard
             };
@@ -82,6 +98,14 @@ namespace Assets.Scripts.Controllers
                         Position = new Vector2(0, 2),
                         SubsystemID = null
                     }
+                },
+                DestroyedShipSection = "ShipPartRectangle_Destroyed",
+                DeathBehavior = new DeathBehavior
+                {
+                    ActionQueue = null,
+                    DisableCollider = false,
+                    Type = DeathBehaviorType.Replace,
+                    SectionType = ShipSectionType.Indestructible,
                 },
                 Hull = 10,
                 Type = ShipSectionType.Standard
@@ -124,7 +148,13 @@ namespace Assets.Scripts.Controllers
             shipSectionObject.GetComponent<Collider2D>().enabled = false;
             ShipSection shipSection = shipSectionObject.GetComponent<ShipSection>();
             shipSection.Type = sectionData.Type;
+            shipSection.DeathBehavior = sectionData.DeathBehavior;
             shipSection.Ship = phase.Ship;
+            if (sectionData.DestroyedShipSection != null)
+            {
+                var x = (GameObject)Resources.Load("Prefabs/ShipSections/" + sectionData.DestroyedShipSection);
+                shipSection.DestroyedShipSection = x.GetComponent<ShipSection>();
+            }
             var hardpointObjects = new List<Hardpoint>();
             foreach (var hardpoint in sectionData.Hardpoints)
             {

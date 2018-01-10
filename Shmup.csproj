@@ -50,34 +50,38 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>Library\UnityAssemblies\UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
-      <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VR">
-      <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Actions\Action.cs" />
+    <Compile Include="Assets\Scripts\Actions\FireAction.cs" />
+    <Compile Include="Assets\Scripts\Actions\IdleAction.cs" />
+    <Compile Include="Assets\Scripts\Actions\RotateAction.cs" />
     <Compile Include="Assets\Scripts\Animations\AnimationSpawner.cs" />
     <Compile Include="Assets\Scripts\Animations\AnimationSpawnerItem.cs" />
     <Compile Include="Assets\Scripts\Base\AbstractClasses\AbstractCollidable.cs" />
@@ -91,10 +95,7 @@
     <Compile Include="Assets\Scripts\Base\Interfaces\IMovable.cs" />
     <Compile Include="Assets\Scripts\Base\Interfaces\iShot.cs" />
     <Compile Include="Assets\Scripts\Base\Movable.cs" />
-    <Compile Include="Assets\Scripts\Behavior\Behavior.cs" />
-    <Compile Include="Assets\Scripts\Behavior\FireBehavior.cs" />
-    <Compile Include="Assets\Scripts\Behavior\IdleBehavior.cs" />
-    <Compile Include="Assets\Scripts\Behavior\RotateBehavior.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\DeathBehavior.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Assets\Scripts\Effects\Effect.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Enums\AreaTypes.cs" />
+    <Compile Include="Assets\Scripts\Enums\DeathBehaviorType.cs" />
     <Compile Include="Assets\Scripts\Enums\EffectTypes.cs" />
     <Compile Include="Assets\Scripts\Enums\FireMode.cs" />
     <Compile Include="Assets\Scripts\Enums\MovementReferenceFrame.cs" />

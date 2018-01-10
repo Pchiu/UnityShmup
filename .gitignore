@@ -34,3 +34,4 @@ _ReSharper*/
 sysinfo.txt
 *.stackdump
 /.vs/Shmup/v15/sqlite3
+/.vs/Shmup/v15/Server/sqlite3

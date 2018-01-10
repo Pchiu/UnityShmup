@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Actions;
 using Assets.Scripts.Base.AbstractClasses;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Animations;
+using Assets.Scripts.Behaviors;
 using UnityEngine;
 
 namespace Assets.Scripts.Ships
@@ -13,8 +15,10 @@ namespace Assets.Scripts.Ships
         public List<Hardpoint> Hardpoints;
         public ShipSectionType Type;
         public Ship Ship;
-        public bool DetachOnDestruction;
-        public bool DisableCollisionOnDestruction;
+
+        public List<GameObject> DeathEffects;
+        public ShipSection DestroyedShipSection;
+        public DeathBehavior DeathBehavior;
 
 
         public ShipSection(string ID) : base(ID) { }
@@ -22,6 +26,7 @@ namespace Assets.Scripts.Ships
         void Awake()
         {
             Hardpoints = new List<Hardpoint>();
+            DeathEffects = new List<GameObject>();
         }
         /*
         public void ToggleWeapons(bool toggle)
@@ -37,9 +42,14 @@ namespace Assets.Scripts.Ships
         */
         public virtual void TakeDamage(int damage)
         {
+            if (Type == ShipSectionType.Indestructible)
+            {
+                return;
+            }
             Hull -= damage;
             if (Hull <= 0)
             {
+                /*
                 if (DisableCollisionOnDestruction)
                 {
                     var collider = GetComponent<Collider2D>();
@@ -50,8 +60,9 @@ namespace Assets.Scripts.Ships
                     this.transform.parent = null;
                     // Add movement at background velocity
                 }
-                
+                */
                 Ship.ShipSections.Remove(this);
+                Die();
 
                 // Move to some controller
                 /*
@@ -64,7 +75,7 @@ namespace Assets.Scripts.Ships
                 spawner.Items.Add(new AnimationSpawnerItem { Sprite = (GameObject)Resources.Load("Prefabs/BulletDeathAnimated_0"), Interval = 0.3f });
                 spawner.Parent = this.gameObject;
                 spawner.Initialize();
-                */
+                */ 
 
                 //StartCoroutine(Die());
                 Ship.CheckCriticalSections();
@@ -111,6 +122,40 @@ namespace Assets.Scripts.Ships
         public void Collide(int damage)
         {
 
+        }
+
+        public void Die()
+        {
+            if (DeathBehavior != null)
+            {
+                switch (DeathBehavior.Type)
+                {
+                    case DeathBehaviorType.Destroy:
+                        Destroy(this.gameObject);
+                        break;
+                    case DeathBehaviorType.Replace:
+                        var destroyedSection = Instantiate(this.DestroyedShipSection, this.transform.position, this.transform.rotation);
+                        destroyedSection.Type = DeathBehavior.SectionType;
+                        destroyedSection.transform.SetParent(this.Ship.transform);
+                        this.Ship.ShipSections.Add(destroyedSection);
+                        destroyedSection.tag = Ship.tag;
+                        if (DeathBehavior.DisableCollider)
+                        {
+                            destroyedSection.GetComponent<Collider2D>().enabled = false;
+                        }
+                        Destroy(this.gameObject);
+
+                        break;
+                    case DeathBehaviorType.Detach:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Destroy(this);
+            }
         }
     }
 }

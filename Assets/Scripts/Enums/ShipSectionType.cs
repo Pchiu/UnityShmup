@@ -4,6 +4,7 @@
     {
         Standard,
         Critical,
+        Indestructible,
         Intangible,
     }
 }

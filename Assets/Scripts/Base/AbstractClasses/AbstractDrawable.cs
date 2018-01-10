@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Actions;
 using Assets.Scripts.Base.Interfaces;
 
 namespace Assets.Scripts.Base.AbstractClasses
@@ -7,7 +8,7 @@ namespace Assets.Scripts.Base.AbstractClasses
     {
         public List<Effect> effects;
         public float turnRate;
-        public List<Behavior.Behavior> BehaviorList;
+        public List<Action> BehaviorList;
 
         public float TurnRate
         {
@@ -24,7 +25,7 @@ namespace Assets.Scripts.Base.AbstractClasses
         public virtual void Awake()
         {
             Effects = new List<Effect>();
-            BehaviorList = new List<Behavior.Behavior>();
+            BehaviorList = new List<Action>();
         }
 
         public AbstractDrawable(string ID) : base(ID)
